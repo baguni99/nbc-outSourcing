@@ -1,0 +1,22 @@
+{
+  "comments": [
+    {
+      "videoId": 1,
+      "password": 1234,
+      "text": "테스트입니다",
+      "id": 1
+    },
+    {
+      "videoId": 2,
+      "password": 1234,
+      "text": "테스트입니다2",
+      "id": 2
+    },
+    {
+      "videoid": 1,
+      "password": "ssss",
+      "text": "1222",
+      "id": 3
+    }
+  ]
+}

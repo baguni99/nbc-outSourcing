@@ -1,7 +1,35 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
 
 const Sub2 = () => {
+  const [comments, setComments] = useState([]);
+  const [commentList, setCommentList] = useState({});
+  const [password, setPassword] = useState();
+  const [commentText, setCommentText] = useState("");
+
+  const getComments = async () => {
+    const { data } = await axios.get("http://localhost:4000/comments");
+    setComments(data);
+  };
+
+  useEffect(() => {
+    getComments();
+  }, []);
+
+  const onClickSubmitButton = () => {
+    setCommentList({
+      videoid: 1,
+      // useParams 해서 뒤에 번호 따오면 될 듯
+      password,
+      text: commentText,
+    });
+
+    console.log(commentList);
+
+    axios.post("http://localhost:4000/comments", commentList);
+  };
+
   return (
     <Body>
       {/* 이곳에 헤더 삽입 */}
@@ -10,42 +38,60 @@ const Sub2 = () => {
         <VideoSection>동영상섹션</VideoSection>
         <CommentSection>
           <h3>댓글</h3>
-          <div className="commentInputContainer">
+          <form
+            className="commentInputContainer"
+            onSubmit={(e) => {
+              e.preventDefault();
+              onClickSubmitButton();
+            }}
+          >
             <CommentTextarea
               rows="5"
               placeholder="덧글을 입력하세요"
+              value={commentText}
+              onChange={(e) => {
+                setCommentText(e.target.value);
+              }}
             ></CommentTextarea>
             <SubmitContainer>
               <PasswordInput
                 type="password"
                 placeholder="비밀번호 입력(4자리)"
-                maxlength="4"
+                maxLength="4"
+                autoComplete="0000"
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
               ></PasswordInput>
               {/* 4글자 미만일 시 alert 발생 */}
               <Button>등록</Button>
             </SubmitContainer>
-          </div>
+          </form>
           <div className="commentOutputContainer">
             {/* map 돌려서 덧글 모두 나오게 만들기 */}
-            <CommentBox>
-              <CommentTexts>이곳에 덧글 출력</CommentTexts>
-              <EditBox>
-                <div className="buttonBox">
-                  <Button>수정</Button>
-                  <Button>삭제</Button>
-                </div>
-                {/* 수정/삭제는 비밀번호 입력시에만 가능하도록 */}
-                <form className="passwordForm">
-                  <PasswordInput
-                    type="password"
-                    placeholder="비밀번호 입력(4자리)"
-                    maxlength="4"
-                  />
-                  <Button type="submit">확인</Button>
-                  {/* 수정/삭제 버튼 누를 경우 input 활성화 */}
-                </form>
-              </EditBox>
-            </CommentBox>
+            {comments?.map((comment) => (
+              <CommentBox key={comment.id}>
+                <CommentTexts>{comment.text}</CommentTexts>
+                <EditBox>
+                  <div className="buttonBox">
+                    <Button>수정</Button>
+                    <Button>삭제</Button>
+                  </div>
+                  {/* 수정/삭제는 비밀번호 입력시에만 가능하도록 */}
+                  <form className="passwordForm">
+                    <PasswordInput
+                      type="password"
+                      placeholder="비밀번호 입력(4자리)"
+                      maxLength="4"
+                      autoComplete="0000"
+                    />
+                    <Button type="submit">확인</Button>
+                    {/* 수정/삭제 버튼 누를 경우 input 활성화 */}
+                  </form>
+                </EditBox>
+              </CommentBox>
+            ))}
           </div>
         </CommentSection>
       </Container>
@@ -58,7 +104,7 @@ export default Sub2;
 const Body = styled.div`
   width: 100%;
   height: 100vh;
-  margin: 50px auto;
+  margin: 0 auto;
 `;
 
 const Container = styled.div`
@@ -76,6 +122,7 @@ const VideoSection = styled.div`
 const CommentSection = styled.div`
   width: 50%;
   margin: 0 auto;
+  padding-bottom: 100px;
 `;
 
 const CommentTextarea = styled.textarea`
@@ -124,6 +171,7 @@ const CommentBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  margin-bottom: 30px;
 `;
 
 const CommentTexts = styled.p`
