@@ -1,7 +1,12 @@
-import React from "react";
+import './App.css';
+import AppRouter from './shared/Router';
 
-const App = () => {
-  return <div>App</div>;
-};
+function App() {
+  return (
+    <div>
+      <AppRouter />
+    </div>
+  );
+}
 
 export default App;
