@@ -1,12 +1,13 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
+import VideoSec from "../components/VideoSec";
+import CommentInput from "../components/CommentInput";
 
 const Sub2 = () => {
   const [comments, setComments] = useState([]);
-  const [commentList, setCommentList] = useState({});
-  const [password, setPassword] = useState();
   const [commentText, setCommentText] = useState("");
+  const [checkPassword, setCheckPassword] = useState("");
 
   const getComments = async () => {
     const { data } = await axios.get("http://localhost:4000/comments");
@@ -17,78 +18,59 @@ const Sub2 = () => {
     getComments();
   }, []);
 
-  const onClickSubmitButton = () => {
-    setCommentList({
-      videoid: 1,
-      // useParams 해서 뒤에 번호 따오면 될 듯
-      password,
-      text: commentText,
-    });
-
-    console.log(commentList);
-
-    axios.post("http://localhost:4000/comments", commentList);
-  };
-
   return (
     <Body>
       {/* 이곳에 헤더 삽입 */}
       {/* 추후에 클래스 모두 컴포넌트로 변경 */}
       <Container>
-        <VideoSection>동영상섹션</VideoSection>
+        <VideoSec />
         <CommentSection>
           <h3>댓글</h3>
-          <form
-            className="commentInputContainer"
-            onSubmit={(e) => {
-              e.preventDefault();
-              onClickSubmitButton();
-            }}
-          >
-            <CommentTextarea
-              rows="5"
-              placeholder="덧글을 입력하세요"
-              value={commentText}
-              onChange={(e) => {
-                setCommentText(e.target.value);
-              }}
-            ></CommentTextarea>
-            <SubmitContainer>
-              <PasswordInput
-                type="password"
-                placeholder="비밀번호 입력(4자리)"
-                maxLength="4"
-                autoComplete="0000"
-                value={password}
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                }}
-              ></PasswordInput>
-              {/* 4글자 미만일 시 alert 발생 */}
-              <Button>등록</Button>
-            </SubmitContainer>
-          </form>
+          <CommentInput getComments={getComments} />
           <div className="commentOutputContainer">
-            {/* map 돌려서 덧글 모두 나오게 만들기 */}
             {comments?.map((comment) => (
               <CommentBox key={comment.id}>
                 <CommentTexts>{comment.text}</CommentTexts>
                 <EditBox>
-                  <div className="buttonBox">
-                    <Button>수정</Button>
-                    <Button>삭제</Button>
-                  </div>
-                  {/* 수정/삭제는 비밀번호 입력시에만 가능하도록 */}
-                  <form className="passwordForm">
-                    <PasswordInput
-                      type="password"
-                      placeholder="비밀번호 입력(4자리)"
-                      maxLength="4"
-                      autoComplete="0000"
+                  <EditCommentBox>
+                    <CommentTextarea
+                      rows="4"
+                      placeholder={comment.text}
+                      value={commentText}
+                      onChange={(e) => {
+                        setCommentText(e.target.value);
+                      }}
                     />
-                    <Button type="submit">확인</Button>
-                    {/* 수정/삭제 버튼 누를 경우 input 활성화 */}
-                  </form>
+                    <div>
+                      <PasswordInput
+                        type="password"
+                        placeholder="비밀번호 입력(4자리)"
+                        maxLength="4"
+                        autoComplete="0000"
+                      />
+                      <Button>완료</Button>
+                    </div>
+                  </EditCommentBox>
+                  {/* EditCommentBox는 수정 버튼 활성시에만 보입니다 */}
+
+                  <EditButtonContainer>
+                    {/* 비밀번호 검증 후에는 잠시 안 보이게 */}
+                    <div className="buttonBox">
+                      <Button>수정</Button>
+                      <Button>삭제</Button>
+                    </div>
+                    {/* 수정/삭제는 비밀번호 입력시에만 가능하도록 */}
+                    <PasswordInputContainer>
+                      <PasswordInput
+                        type="password"
+                        placeholder="비밀번호 입력(4자리)"
+                        maxLength="4"
+                        autoComplete="0000"
+                      />
+                      <Button type="submit">확인</Button>
+                    </PasswordInputContainer>
+                    {/* 위는 삭제 버튼 누를 경우에만 활성화 */}
+                  </EditButtonContainer>
                 </EditBox>
               </CommentBox>
             ))}
@@ -112,13 +94,6 @@ const Container = styled.div`
   margin: 0 auto;
 `;
 
-const VideoSection = styled.div`
-  width: 720px;
-  height: 480px;
-  margin: 100px auto;
-  background-color: #999;
-`;
-
 const CommentSection = styled.div`
   width: 50%;
   margin: 0 auto;
@@ -131,19 +106,6 @@ const CommentTextarea = styled.textarea`
   padding: 10px;
   font-size: 18px;
   resize: none;
-`;
-
-const SubmitContainer = styled.div`
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  margin: 10px 0 50px;
-
-  & > button {
-    width: 100px;
-    height: 40px;
-    border-radius: 20px;
-  }
 `;
 
 const PasswordInput = styled.input`
@@ -183,9 +145,42 @@ const CommentTexts = styled.p`
   background-color: #eee;
 `;
 
-const EditBox = styled.div`
-  display: flex;
-  justify-content: space-between;
+const EditBox = styled.form`
+  width: 100%;
+`;
+
+const EditCommentBox = styled.div`
+  display: none;
+  // 기본 값은 none, 수정 시에 block으로 보이게 함
   align-items: center;
   width: 100%;
+
+  & > textarea {
+    margin: 10px 0;
+  }
+
+  & > div {
+    text-align: right;
+
+    & > button {
+      width: 100px;
+      height: 40px;
+      margin-left: 10px;
+    }
+  }
+`;
+
+const EditButtonContainer = styled.div`
+  position: relative;
+  // 수정 시에 잠시 display none 됐다가 수정 이후 block으로 다시 변경
+  align-items: center;
+  width: 100%;
+`;
+
+const PasswordInputContainer = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  /* display: none; */
+  // 기본값: none, 삭제버튼 누르면 block처리
 `;
