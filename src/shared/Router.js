@@ -9,7 +9,6 @@ const AppRouter = () => {
     <QueryClientProvider client={queryClient}>
       <Router>
         <Routes>
-          {/* <Route path="/" element={<fetchVideos />} /> */}
           <Route path="/" element={<VideoList />} />
         </Routes>
       </Router>

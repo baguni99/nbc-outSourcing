@@ -7,8 +7,8 @@ export const fetchVideos = async (category, pageToken = '') => {
     params: {
       part: 'snippet',
       q: category,
-      key: 'AIzaSyA5LqbiURh00hMQd_nspmkQ0BMtgpmJKdw',
-      maxResults: 50,
+      key: 'AIzaSyCT9PXBOXxav1Jo-sMv_nl5mTOGfoeLdcE',
+      maxResults: 15,
       pageToken
     }
   });
@@ -20,26 +20,24 @@ export const VideoList = () => {
   const [videos, setVideos] = useState([]);
   const [nextPageToken, setNextPageToken] = useState('');
   const fetchVideosRef = useRef(fetchVideos);
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const target = useRef(null);
+
   const { isLoading, error, data } = useQuery(['videos', nextPageToken], () =>
     fetchVideosRef.current('자취생 레시피', nextPageToken)
   );
 
-  const target = useRef(null);
-
-  const options = {
-    threshold: 1.0
-  };
-
   const callback = (entries, observer) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
+        setScrollPosition(window.pageYOffset);
+        setNextPageToken(data.nextPageToken);
         observer.unobserve(entry.target);
-        setNextPageToken(data.nextPageToken); // Fetch next set of videos
       }
     });
   };
 
-  const observer = new IntersectionObserver(callback, options);
+  const observer = new IntersectionObserver(callback, { threshold: 1.0 });
 
   useEffect(() => {
     if (target.current) {
@@ -53,25 +51,31 @@ export const VideoList = () => {
 
   useEffect(() => {
     if (data && !isLoading) {
-      setVideos((prevVideos) => [...prevVideos, ...data.items]);
+      setVideos((prevVideos) => {
+        const newVideos = data.items.filter((video) => !prevVideos.find((v) => v.id.videoId === video.id.videoId));
+        return [...prevVideos, ...newVideos];
+      });
+      window.scrollTo(0, scrollPosition);
     }
   }, [data, isLoading]);
 
   if (isLoading) return 'Loading...';
-
   if (error) return `에러 발생: ${error.message}`;
 
   return (
     <div>
       <div>카테고리 제목이 들어갑니다(mainPage와 합친 후 넣을 예정)</div>
       <ul>
-        {videos.map((video) => (
-          <li key={video.id.videoId}>
-            <img src={video.snippet.thumbnails.default.url} alt={video.snippet.title} />
-            {video.snippet.title} <div>게시일 : {video.snippet.publishedAt}</div>
-            <div>작성자: {video.snippet.channelTitle}</div>
-          </li>
-        ))}
+        {videos.map((video) => {
+          const id = video.id.videoId || video.id.channelId || video.etag;
+          return (
+            <li key={id}>
+              <img src={video.snippet.thumbnails.default.url} alt={video.snippet.title} />
+              {video.snippet.title} <div>게시일 : {video.snippet.publishedAt}</div>
+              <div>작성자: {video.snippet.channelTitle}</div>
+            </li>
+          );
+        })}
       </ul>
       <div style={{ height: '100px' }} ref={target}>
         target
