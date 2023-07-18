@@ -1,6 +1,8 @@
 import { useQuery } from 'react-query';
 import axios from 'axios';
 import { useEffect, useState, useRef } from 'react';
+import CustomButton from './Buttons';
+import { SortByOld, SortByRecent } from './Style';
 
 export const fetchVideos = async (category, pageToken = '') => {
   const response = await axios.get('https://www.googleapis.com/youtube/v3/search', {
@@ -8,7 +10,7 @@ export const fetchVideos = async (category, pageToken = '') => {
       part: 'snippet',
       q: category,
       key: 'AIzaSyCT9PXBOXxav1Jo-sMv_nl5mTOGfoeLdcE',
-      maxResults: 15,
+      maxResults: 5,
       pageToken
     }
   });
@@ -21,6 +23,8 @@ export const VideoList = () => {
   const [nextPageToken, setNextPageToken] = useState('');
   const fetchVideosRef = useRef(fetchVideos);
   const [scrollPosition, setScrollPosition] = useState(0);
+  const [sortType, setSortType] = useState('recent');
+  const [sortVideos, setSortedVideos] = useState([]); //
   const target = useRef(null);
 
   const { isLoading, error, data } = useQuery(['videos', nextPageToken], () =>
@@ -48,7 +52,16 @@ export const VideoList = () => {
       observer.disconnect();
     };
   }, [target.current]);
-
+  const sortMethod = (method) => {
+    let newSortedVideos;
+    if (method === 'recent') {
+      newSortedVideos = [...videos].sort((a, b) => new Date(b.snippet.publishedAt) - new Date(a.snippet.publishedAt));
+    } else if (method === 'old') {
+      newSortedVideos = [...videos].sort((a, b) => new Date(a.snippet.publishedAt) - new Date(b.snippet.publishedAt));
+    }
+    setSortType(method);
+    setSortedVideos(newSortedVideos);
+  };
   useEffect(() => {
     if (data && !isLoading) {
       setVideos((prevVideos) => {
@@ -56,6 +69,7 @@ export const VideoList = () => {
         return [...prevVideos, ...newVideos];
       });
       window.scrollTo(0, scrollPosition);
+      sortMethod(sortType);
     }
   }, [data, isLoading]);
 
@@ -65,8 +79,9 @@ export const VideoList = () => {
   return (
     <div>
       <div>카테고리 제목이 들어갑니다(mainPage와 합친 후 넣을 예정)</div>
+      <CustomButton sortMethod={sortMethod} />
       <ul>
-        {videos.map((video) => {
+        {sortVideos.map((video) => {
           const id = video.id.videoId || video.id.channelId || video.etag;
           return (
             <li key={id}>
