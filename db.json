@@ -1,34 +1,58 @@
 {
   "comments": [
     {
-      "id": 1,
-      "videoId": 1,
-      "password": "1234",
-      "text": "테스트입니다"
-    },
-    {
-      "id": 2,
-      "videoId": 2,
-      "password": "1234",
-      "text": "테스트입니다2"
+      "videoid": 1,
+      "password": "1111",
+      "text": "테스트1",
+      "id": 1
     },
     {
       "videoid": 1,
-      "password": "1004",
-      "text": "잘되는지 확인확인하고 또 확인하도록 하세요^^",
+      "password": "2222",
+      "text": "테스트2",
+      "id": 2
+    },
+    {
+      "videoid": 1,
+      "password": "3333",
+      "text": "테스트3",
       "id": 3
     },
     {
       "videoid": 1,
-      "password": "aa11",
-      "text": "111",
+      "password": "4444",
+      "text": "테스트4",
       "id": 4
     },
     {
       "videoid": 1,
-      "password": "1111",
-      "text": "뭐임마?",
+      "password": "5555",
+      "text": "테스트5",
       "id": 5
+    },
+    {
+      "videoid": 1,
+      "password": "6666",
+      "text": "테스트6",
+      "id": 6
+    },
+    {
+      "videoid": 1,
+      "password": "7777",
+      "text": "테스트7",
+      "id": 7
+    },
+    {
+      "videoid": 1,
+      "password": "8888",
+      "text": "테스트8",
+      "id": 8
+    },
+    {
+      "videoid": 1,
+      "password": "9999",
+      "text": "테스트9",
+      "id": 9
     }
   ]
 }

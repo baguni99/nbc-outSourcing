@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import VideoSec from "../components/VideoSec";
 import CommentInput from "../components/CommentInput";
+import DeleteButton from "../components/DeleteButton";
+import EditButton from "../components/EditButton";
 
 const Sub2 = () => {
   const [comments, setComments] = useState([]);
@@ -10,7 +12,7 @@ const Sub2 = () => {
   const [checkPassword, setCheckPassword] = useState("");
 
   const getComments = async () => {
-    const { data } = await axios.get("http://localhost:4000/comments");
+    const { data } = await axios.get("http://localhost:3001/comments");
     setComments(data);
   };
 
@@ -42,31 +44,20 @@ const Sub2 = () => {
                       }}
                     />
                     <div>
-                      <PasswordInput
-                        type="password"
-                        placeholder="비밀번호 입력(4자리)"
-                        maxLength="4"
-                        autoComplete="0000"
-                      />
+                      <PasswordInput type="password" placeholder="비밀번호 입력(4자리)" maxLength="4" autoComplete="0000" />
                       <Button>완료</Button>
                     </div>
                   </EditCommentBox>
                   {/* EditCommentBox는 수정 버튼 활성시에만 보입니다 */}
-
                   <EditButtonContainer>
                     {/* 비밀번호 검증 후에는 잠시 안 보이게 */}
                     <div className="buttonBox">
-                      <Button>수정</Button>
-                      <Button>삭제</Button>
+                      <EditButton id={comment.id} currentText={comment.text} onEdit={getComments} />
+                      <DeleteButton id={comment.id} onDelete={getComments} />
                     </div>
                     {/* 수정/삭제는 비밀번호 입력시에만 가능하도록 */}
                     <PasswordInputContainer>
-                      <PasswordInput
-                        type="password"
-                        placeholder="비밀번호 입력(4자리)"
-                        maxLength="4"
-                        autoComplete="0000"
-                      />
+                      <PasswordInput type="password" placeholder="비밀번호 입력(4자리)" maxLength="4" autoComplete="0000" />
                       <Button type="submit">확인</Button>
                     </PasswordInputContainer>
                     {/* 위는 삭제 버튼 누를 경우에만 활성화 */}

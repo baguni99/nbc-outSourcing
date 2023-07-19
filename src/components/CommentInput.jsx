@@ -17,7 +17,7 @@ const CommentInput = ({ getComments }) => {
           text: commentText,
         };
 
-        await axios.post("http://localhost:4000/comments", newComment);
+        await axios.post("http://localhost:3001/comments", newComment);
         setCommentText("");
         setPassword("");
 
