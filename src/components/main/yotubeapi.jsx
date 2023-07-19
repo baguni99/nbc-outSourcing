@@ -7,7 +7,7 @@ export const fetchVideos = async (category, pageToken = '') => {
     params: {
       part: 'snippet',
       q: category,
-      key: 'AIzaSyA0bHsrm90pIK2J9anLy_b2LTg8wbsJWck',
+      key: 'AIzaSyBiulx16gBOFnn-mNQcmV8Eihn_SQS-_J4',
       maxResults: 5,
       pageToken
     }
