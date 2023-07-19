@@ -9,7 +9,7 @@ export const fetchVideos = async (category, pageToken = '') => {
       part: 'snippet',
       q: category,
       key: 'AIzaSyBiulx16gBOFnn-mNQcmV8Eihn_SQS-_J4',
-      maxResults: 5,
+      maxResults: 1,
       pageToken
     }
   });

@@ -8,7 +8,7 @@ export const fetchVideos = async (category, pageToken = '') => {
       part: 'snippet',
       q: category,
       key: 'AIzaSyBiulx16gBOFnn-mNQcmV8Eihn_SQS-_J4',
-      maxResults: 5,
+      maxResults: 1,
       pageToken
     }
   });
@@ -17,7 +17,7 @@ export const fetchVideos = async (category, pageToken = '') => {
   return respones.data;
 };
 
-export const Yotubeapi = () => {
+export const Chapterone = () => {
   const [yotube, setYoutube] = useState([]);
 
   const { isLoading, isError, data } = useQuery('youtube', () => fetchVideos('자취생 레시피'));
@@ -53,4 +53,4 @@ export const Yotubeapi = () => {
   );
 };
 
-export default Yotubeapi;
+export default Chapterone;
