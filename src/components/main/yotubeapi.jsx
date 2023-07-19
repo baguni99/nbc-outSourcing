@@ -1,8 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
-import CustomButton from '../Buttons';
-import { WatchMore } from '../Style';
+import CustomButton from '../chapter/Buttons';
+import { WatchMore } from '../style/Style';
 import { useNavigate } from 'react-router';
 
 export const fetchVideos = async (category, pageToken = '') => {
