@@ -1,7 +1,7 @@
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { VideoList } from '../components/chapter/SubPage';
-import Yotubeapi from '../components/main/Yotubeapi';
+import Yotubeapi from '../components/main/yotubeapi';
 
 import Main from '../pages/Main';
 import Sub2 from '../pages/Sub2';

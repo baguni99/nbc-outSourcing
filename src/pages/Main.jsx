@@ -1,5 +1,5 @@
 import React from 'react';
-import Yotubeapi from '../components/main/Yotubeapi';
+import Yotubeapi from '../components/main/yotubeapi';
 
 const Main = () => {
   return (

@@ -5,6 +5,7 @@ import VideoSec from '../components/detail/VideoSec';
 import CommentInput from '../components/detail/CommentInput';
 import DeleteButton from '../components/detail/DeleteButton';
 import EditButton from '../components/detail/EditButton';
+import { Header } from '../components/style/Header';
 
 const Sub2 = () => {
   const [comments, setComments] = useState([]);
@@ -22,7 +23,7 @@ const Sub2 = () => {
 
   return (
     <Body>
-      {/* 이곳에 헤더 삽입 */}
+      <Header />
       {/* 추후에 클래스 모두 컴포넌트로 변경 */}
       <Container>
         <VideoSec />

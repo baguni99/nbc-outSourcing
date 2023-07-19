@@ -13,7 +13,9 @@ import reportWebVitals from './reportWebVitals';
 //   params: { key: process.env.DEVELOPER_KEY }
 // });
 // const youtube = new Youtube(httpClient);
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
   //<Provider>
   <App />
