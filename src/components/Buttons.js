@@ -1,6 +1,7 @@
 //버튼 컴포넌트
 import React, { useEffect, useState } from 'react';
-import { GoToTop, SortByOld, SortByRecent } from './Style';
+import { GoToTop, SortByOld, SortByRecent, WatchMore } from './Style';
+
 function throttle(func, wait) {
   let timeout;
   return function () {

@@ -1,6 +1,9 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
+import CustomButton from '../Buttons';
+import { WatchMore } from '../Style';
+import { useNavigate } from 'react-router';
 
 export const fetchVideos = async (category, pageToken = '') => {
   const respones = await axios.get('https://www.googleapis.com/youtube/v3/search', {
@@ -19,9 +22,11 @@ export const fetchVideos = async (category, pageToken = '') => {
 
 export const Yotubeapi = () => {
   const [yotube, setYoutube] = useState([]);
-
+  const navigate = useNavigate();
   const { isLoading, isError, data } = useQuery('youtube', () => fetchVideos('자취생 레시피'));
-
+  const watchMore = () => {
+    navigate('/VideoList');
+  };
   useEffect(() => {
     if (data && !isLoading) {
       console.log('data===>', data.items);
@@ -49,6 +54,7 @@ export const Yotubeapi = () => {
           );
         })}
       </div>
+      <WatchMore onClick={watchMore}>더보기</WatchMore>
     </>
   );
 };

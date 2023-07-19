@@ -10,6 +10,11 @@ export const SortByRecent = styled(MultiUseButton)`
   height: 60px;
 `;
 
+export const WatchMore = styled(MultiUseButton)`
+  width: 60px;
+  height: 60px;
+`;
+
 export const GoToTop = styled(MultiUseButton)`
   width: 60px;
   height: 60px;
