@@ -2,7 +2,6 @@ import { useQuery } from 'react-query';
 import axios from 'axios';
 import { useEffect, useState, useRef } from 'react';
 import CustomButton from './Buttons';
-import { SortByOld, SortByRecent } from './Style';
 
 export const fetchVideos = async (category, pageToken = '') => {
   const response = await axios.get('https://www.googleapis.com/youtube/v3/search', {
@@ -75,7 +74,6 @@ export const VideoList = () => {
 
   if (isLoading) return 'Loading...';
   if (error) return `에러 발생: ${error.message}`;
-
   return (
     <div>
       <div>카테고리 제목이 들어갑니다(mainPage와 합친 후 넣을 예정)</div>
