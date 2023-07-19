@@ -7,8 +7,8 @@ export const fetchVideos = async (category, pageToken = '') => {
     params: {
       part: 'snippet',
       q: category,
-      key: 'AIzaSyA5LqbiURh00hMQd_nspmkQ0BMtgpmJKdw',
-      maxResults: 50,
+      key: 'AIzaSyA0bHsrm90pIK2J9anLy_b2LTg8wbsJWck',
+      maxResults: 5,
       pageToken
     }
   });
