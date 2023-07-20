@@ -14,7 +14,7 @@ import { useNavigate } from 'react-router';
 import { Header } from '../style/Header';
 import { styled } from 'styled-components';
 
-export const fetchVideos = async (category, pageToken = '') => {
+export const fetchVideosTwo = async (category, pageToken = '') => {
   const response = await axios.get('https://www.googleapis.com/youtube/v3/search', {
     params: {
       part: 'snippet',
@@ -33,7 +33,7 @@ export const Chapterotwo = () => {
   const [yotube, setYoutube] = useState([]);
   const [headerHeight, setHeaderHeight] = useState(0);
   const navigate = useNavigate();
-  const { isLoading, isError, data } = useQuery('youtube', () => fetchVideos('자취방 구하기'));
+  const { isLoading, isError, data } = useQuery('youtubeTwo', () => fetchVideosTwo('자취방 구하기'));
   const watchMore = () => {
     navigate('/VideoList');
   };
