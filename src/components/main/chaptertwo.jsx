@@ -71,31 +71,31 @@ export const Chapterotwo = () => {
   `;
   return (
     <>
-      <Header />
-      <StyledContainer headerHeight={headerHeight}>
-        <Chapter>👀자취생 레시피👀</Chapter>
-        <WatchMoreContainer>
-          <WatchMore onClick={watchMore}>더보기</WatchMore>
-        </WatchMoreContainer>
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <DirectionButton onClick={() => handleScroll('left')}>
-            <img src="/asset/left.png" alt="scroll left" />
-          </DirectionButton>
-          <VideoContainer ref={scrollContainer}>
-            {yotube.map((item) => {
-              return (
-                <VideoItem key={item.snippet.title}>
-                  <img src={item.snippet.thumbnails.default.url} alt={item.snippet.title} />
-                  <div>{item.snippet.title}</div>
-                </VideoItem>
-              );
-            })}
-          </VideoContainer>
-          <DirectionButton onClick={() => handleScroll('right')}>
-            <img src="/asset/right.png" alt="scroll right" />
-          </DirectionButton>
-        </div>
-      </StyledContainer>
+      {/* <Header /> */}
+      {/* <StyledContainer headerHeight={headerHeight}> */}
+      <Chapter>👀자취생 레시피👀</Chapter>
+      <WatchMoreContainer>
+        <WatchMore onClick={watchMore}>더보기</WatchMore>
+      </WatchMoreContainer>
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <DirectionButton onClick={() => handleScroll('left')}>
+          <img src="/asset/left.png" alt="scroll left" />
+        </DirectionButton>
+        <VideoContainer ref={scrollContainer}>
+          {yotube.map((item) => {
+            return (
+              <VideoItem key={item.snippet.title}>
+                <img src={item.snippet.thumbnails.default.url} alt={item.snippet.title} />
+                <div>{item.snippet.title}</div>
+              </VideoItem>
+            );
+          })}
+        </VideoContainer>
+        <DirectionButton onClick={() => handleScroll('right')}>
+          <img src="/asset/right.png" alt="scroll right" />
+        </DirectionButton>
+      </div>
+      {/* </StyledContainer> */}
     </>
   );
 };
