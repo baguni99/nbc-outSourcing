@@ -3,7 +3,7 @@ import { createGlobalStyle } from 'styled-components';
 const GlobalStyle = createGlobalStyle`
 header {
 
-  font-family: 'Moirai One', cursive;
+  font-family: 'Jua', sans-serif;
     
 }
 body {
@@ -117,11 +117,4 @@ export const SubVideoAuthor = styled.div`
 `;
 export const SubVideoDate = styled.div`
   font-size: 16px;
-`;
-export const SubBody = styled.div`
-  padding-top: ${({ headerHeight }) => (headerHeight > 5 ? `${headerHeight}px` : '0')};
-`;
-
-export const StyleBody = styled.div`
-  padding-top: ${({ headerHeight }) => (headerHeight > 5 ? `${headerHeight}px` : '0')};
 `;

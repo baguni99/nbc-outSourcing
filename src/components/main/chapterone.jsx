@@ -13,20 +13,21 @@ import {
 } from '../style/Style';
 import { useNavigate } from 'react-router';
 import { Header } from '../style/Header';
+import { styled } from 'styled-components';
 
 export const fetchVideos = async (category, pageToken = '') => {
-  const respones = await axios.get('https://www.googleapis.com/youtube/v3/search', {
+  const response = await axios.get('https://www.googleapis.com/youtube/v3/search', {
     params: {
       part: 'snippet',
       q: category,
-      key: 'AIzaSyAgWq5JVqOLhM8T1IyxXhFtt0aIyLe5zqA',
+      key: 'AIzaSyDg5gp0Iwf3H5hmgmQG3cZ4axoUiUUs2dw',
       maxResults: 5,
       pageToken
     }
   });
-  console.log(respones);
+  console.log(response);
 
-  return respones.data;
+  return response.data;
 };
 
 export const Yotubeapi = () => {
@@ -37,7 +38,7 @@ export const Yotubeapi = () => {
   const watchMore = () => {
     navigate('/VideoList');
   };
-  const scrollContainer = useRef(null);
+  const scrollContainer = useRef();
   const handleScroll = (direction) => {
     if (scrollContainer.current) {
       if (direction === 'left') {
@@ -66,11 +67,13 @@ export const Yotubeapi = () => {
   if (isError) {
     return <div>오류가 발생했습니다.</div>;
   }
-
+  const StyledContainer = styled.div`
+    margin-top: ${({ headerHeight }) => (headerHeight > 10 ? `${headerHeight}px` : '0')};
+  `;
   return (
     <>
       <Header />
-      <StyleBody headerHeight={headerHeight}>
+      <StyledContainer headerHeight={headerHeight}>
         <Chapter>카테고리 제목</Chapter>
         <WatchMoreContainer>
           <WatchMore onClick={watchMore}>더보기</WatchMore>
@@ -82,7 +85,7 @@ export const Yotubeapi = () => {
           <VideoContainer ref={scrollContainer}>
             {yotube.map((item) => {
               return (
-                <VideoItem key={item.id.videoId}>
+                <VideoItem key={item.snippet.title}>
                   <img src={item.snippet.thumbnails.default.url} alt={item.snippet.title} />
                   <div>{item.snippet.title}</div>
                   {/* <div> {item.snippet.publishedAt}</div> */}
@@ -94,7 +97,7 @@ export const Yotubeapi = () => {
             <img src="/asset/right.png" alt="scroll right" />
           </DirectionButton>
         </div>
-      </StyleBody>
+      </StyledContainer>
     </>
   );
 };

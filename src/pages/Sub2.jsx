@@ -20,12 +20,14 @@ const Sub2 = () => {
   useEffect(() => {
     getComments();
   }, []);
-
+  const StyledContainer = styled.div`
+    margin-top: ${({ headerHeight }) => (headerHeight > 10 ? `${headerHeight}px` : '0')};
+  `;
   return (
     <Body>
       <Header />
       {/* 추후에 클래스 모두 컴포넌트로 변경 */}
-      <Container>
+      <StyledContainer>
         <VideoSec />
         <CommentSection>
           <h3>댓글</h3>
@@ -78,7 +80,7 @@ const Sub2 = () => {
             ))}
           </div>
         </CommentSection>
-      </Container>
+      </StyledContainer>
     </Body>
   );
 };

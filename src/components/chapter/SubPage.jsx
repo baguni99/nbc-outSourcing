@@ -14,13 +14,14 @@ import {
   VideoInfo
 } from '../style/Style';
 import { useNavigate } from 'react-router';
+import { styled } from 'styled-components';
 
 export const fetchVideos = async (category, pageToken = '') => {
   const response = await axios.get('https://www.googleapis.com/youtube/v3/search', {
     params: {
       part: 'snippet',
       q: category,
-      key: 'AIzaSyAgWq5JVqOLhM8T1IyxXhFtt0aIyLe5zqA',
+      key: 'AIzaSyDg5gp0Iwf3H5hmgmQG3cZ4axoUiUUs2dw',
       maxResults: 5,
       pageToken
     }
@@ -37,11 +38,12 @@ export const VideoList = () => {
   const [sortType, setSortType] = useState('recent');
   const [sortVideos, setSortedVideos] = useState([]); //
   const [headerHeight, setHeaderHeight] = useState(0);
-  const target = useRef(null);
+  const target = useRef();
   const navigate = useNavigate();
   const watchDetail = () => {
     navigate('/Sub2/:id');
   };
+
   const { isLoading, error, data } = useQuery(['videos', nextPageToken], () =>
     fetchVideosRef.current('자취생 레시피', nextPageToken)
   );
@@ -74,6 +76,7 @@ export const VideoList = () => {
   }, [target.current]);
   const sortMethod = (method) => {
     let newSortedVideos;
+
     if (method === 'recent') {
       newSortedVideos = [...videos].sort((a, b) => new Date(b.snippet.publishedAt) - new Date(a.snippet.publishedAt));
     } else if (method === 'old') {
@@ -95,10 +98,14 @@ export const VideoList = () => {
 
   if (isLoading) return 'Loading...';
   if (error) return `에러 발생: ${error.message}`;
+  const StyledContainer = styled.div`
+    margin-top: ${({ headerHeight }) => (headerHeight > 10 ? `${headerHeight}px` : '0')};
+  `;
+
   return (
     <div>
       <Header />
-      <SubBody headerHeight={headerHeight}>
+      <StyledContainer headerHeight={headerHeight}>
         <Chapter>Chapter 1 | 자 취 레 시 피</Chapter>
         <CustomButton sortMethod={sortMethod} />
         <SubVideoContainer>
@@ -120,7 +127,7 @@ export const VideoList = () => {
           })}
         </SubVideoContainer>
         <div style={{ height: '100px' }} ref={target}></div>
-      </SubBody>
+      </StyledContainer>
     </div>
   );
 };
