@@ -1,7 +1,7 @@
-const jsonServer = require("json-server");
-const cors = require("cors");
+const jsonServer = require('json-server');
+const cors = require('cors');
 const server = jsonServer.create();
-const router = jsonServer.router("db.json");
+const router = jsonServer.router('db.json');
 const middlewares = jsonServer.defaults();
 
 server.use(cors()); // CORS 미들웨어 적용

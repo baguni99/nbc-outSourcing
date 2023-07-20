@@ -5,14 +5,18 @@ import {
   Chapter,
   DirectionButton,
   StyleBody,
+  VideoBox,
   VideoContainer,
   VideoItem,
+  VideoTitle,
   WatchMore,
   WatchMoreContainer
 } from '../style/Style';
 import { useNavigate } from 'react-router';
-import { Header } from '../style/Header';
+
 import { styled } from 'styled-components';
+import { Header } from '../style/Header';
+import { Footer, StyledFooter } from '../style/Footer';
 
 export const fetchVideosThree = async (category, pageToken = '') => {
   const respones = await axios.get('https://www.googleapis.com/youtube/v3/search', {
@@ -42,9 +46,9 @@ export const Chapterthree = () => {
   const handleScroll = (direction) => {
     if (scrollContainer.current) {
       if (direction === 'left') {
-        scrollContainer.current.scrollLeft -= 300;
-      } else {
         scrollContainer.current.scrollLeft += 300;
+      } else {
+        scrollContainer.current.scrollLeft -= 300;
       }
     }
   };
@@ -64,21 +68,15 @@ export const Chapterthree = () => {
   }, [data]);
 
   if (isLoading) {
-    return <div>로딩중!</div>;
+    return <div>중</div>;
   }
   if (isError) {
-    return <div>오류가생겼습니다.</div>;
+    return <div>발생</div>;
   }
 
-  const StyledContainer = styled.div`
-    margin-top: ${({ headerHeight }) => (headerHeight > 5 ? `${headerHeight}px` : '0')};
-  `;
-
   return (
-    <>
-      {/* <Header /> */}
-      {/* <StyledContainer headerHeight={headerHeight}> */}
-      <Chapter>👀자취생 레시피👀</Chapter>
+    <div style={{ marginTop: '80px', marginBottom: '80px', marginLeft: '40px', marginRight: '40px' }}>
+      <Chapter>📌자취 노하우</Chapter>
       <WatchMoreContainer>
         <WatchMore onClick={watchMore}>더보기</WatchMore>
       </WatchMoreContainer>
@@ -89,10 +87,12 @@ export const Chapterthree = () => {
         <VideoContainer ref={scrollContainer}>
           {yotube.map((item) => {
             return (
-              <VideoItem key={item.snippet.title}>
-                <img src={item.snippet.thumbnails.default.url} alt={item.snippet.title} />
-                <div>{item.snippet.title}</div>
-              </VideoItem>
+              <VideoBox key={item.snippet.title}>
+                <VideoItem>
+                  <img src={item.snippet.thumbnails.default.url} alt={item.snippet.title} />
+                  <VideoTitle>{item.snippet.title}</VideoTitle>
+                </VideoItem>
+              </VideoBox>
             );
           })}
         </VideoContainer>
@@ -100,8 +100,7 @@ export const Chapterthree = () => {
           <img src="/asset/right.png" alt="scroll right" />
         </DirectionButton>
       </div>
-      {/* </StyledContainer> */}
-    </>
+    </div>
   );
 };
 

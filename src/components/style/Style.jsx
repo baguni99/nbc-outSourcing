@@ -4,11 +4,13 @@ const GlobalStyle = createGlobalStyle`
 header {
 
   font-family: 'Jua', sans-serif;
-    
+  background-color: rgb(205, 217, 199)
+
 }
 body {
-
-    background-color:#f0f1d5;
+    background-color:#f2f2f2
+    
+   
 }`;
 
 export default GlobalStyle;
@@ -36,13 +38,14 @@ export const SortByRecent = styled(MultiUseButton)`
 export const WatchMore = styled(MultiUseButton)`
   width: 64px;
   height: 28px;
-  background-color: rgb(230, 230, 230);
+  background-color: rgb(217, 201, 186);
   color: rgb(131, 131, 131);
   border-radius: 25px;
   border-color: transparent;
+  margin-bottom: 30px;
   &:hover {
-    background-color: rgb(158, 158, 158);
-    color: rgb(255, 255, 255);
+    background-color: #593f2f;
+    color: #f2f2f2;
   }
 `;
 export const WatchMoreContainer = styled.div`
@@ -70,6 +73,7 @@ export const Chapter = styled.div`
   border-radius: 30px;
   font-weight: bold;
   color: rgb(52, 73, 94);
+  margin: 1px;
 `;
 export const SubChapter = styled.div`
   display: flex;
@@ -82,6 +86,7 @@ export const SubChapter = styled.div`
 `;
 export const VideoContainer = styled.div`
   display: flex;
+
   overflow-x: scroll;
   -ms-overflow-style: none;
   &::-webkit-scrollbar {
@@ -91,11 +96,15 @@ export const VideoContainer = styled.div`
 `;
 
 export const VideoItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   flex: 0 0 auto;
   width: 300px;
   margin-right: 30px;
   border-width: 30px;
-  border-color: lightgray;
+  border-color: 2px solid lightgray;
   img {
     width: 100%;
     height: 200px;
@@ -109,11 +118,16 @@ export const DirectionButton = styled.button`
 
 export const SubVideoItem = styled.li`
   display: flex;
-  justify-content: flex-start;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 300px;
   border: 2px solid lightgray;
-  padding: 10px;
-  margin-bottom: 10px;
+  img {
+    width: 100%;
+    height: 200px;
+  }
 `;
 export const SubVideoImage = styled.img`
   width: 500px;
@@ -139,4 +153,24 @@ export const SubVideoAuthor = styled.div`
 `;
 export const SubVideoDate = styled.div`
   font-size: 16px;
+`;
+export const VideoTitle = styled.div`
+  font-size: 16px;
+  font-weight: bold;
+  margin-left: 10px;
+  margin-top: 20px;
+`;
+export const VideoThumbnail = styled.img``;
+
+export const StyledBody = styled.div`
+  padding-top: ${({ headerHeight }) => (headerHeight > 10 ? `${headerHeight}px` : '0')};
+`;
+export const VideoBox = styled.div`
+  display: flex;
+  align-items: center; /* 세로 정렬 */
+  justify-content: center; /* 가로 정렬 */
+  border: 2px solid lightgray;
+  padding: 40px;
+  margin-bottom: 10px;
+  margin-right: 10px;
 `;

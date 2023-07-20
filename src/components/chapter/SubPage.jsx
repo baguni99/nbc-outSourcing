@@ -16,9 +16,10 @@ import {
 } from '../style/Style';
 import { useNavigate } from 'react-router';
 import { styled } from 'styled-components';
-
+const apiUrl = process.env.REACT_APP_API_URL;
+const apiKey = process.env.REACT_APP_API_KEY;
 export const fetchVideos = async (category, pageToken = '') => {
-  const response = await axios.get('https://www.googleapis.com/youtube/v3/search', {
+  const response = await axios.get(apiUrl, {
     params: {
       part: 'snippet',
       q: category,

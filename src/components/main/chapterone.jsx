@@ -5,8 +5,10 @@ import {
   Chapter,
   DirectionButton,
   StyleBody,
+  VideoBox,
   VideoContainer,
   VideoItem,
+  VideoTitle,
   WatchMore,
   WatchMoreContainer
 } from '../style/Style';
@@ -41,9 +43,9 @@ export const Chapterone = () => {
   const handleScroll = (direction) => {
     if (scrollContainer.current) {
       if (direction === 'left') {
-        scrollContainer.current.scrollLeft -= 300;
-      } else {
         scrollContainer.current.scrollLeft += 300;
+      } else {
+        scrollContainer.current.scrollLeft -= 300;
       }
     }
   };
@@ -61,42 +63,39 @@ export const Chapterone = () => {
   }, [data]);
 
   if (isLoading) {
-    return <div>로딩중!</div>;
+    return <div>로</div>;
   }
   if (isError) {
-    return <div>오류가 발생했습니다.</div>;
+    return <div>오</div>;
   }
-  const StyledContainer = styled.div`
-    margin-top: ${({ headerHeight }) => (headerHeight > 5 ? `${headerHeight}px` : '0')};
-  `;
+
   return (
-    <>
-      <Header />
-      <StyledContainer headerHeight={headerHeight}>
-        <Chapter>👀자취생 레시피👀</Chapter>
-        <WatchMoreContainer>
-          <WatchMore onClick={watchMore}>더보기</WatchMore>
-        </WatchMoreContainer>
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <DirectionButton onClick={() => handleScroll('left')}>
-            <img src="/asset/left.png" alt="scroll left" />
-          </DirectionButton>
-          <VideoContainer ref={scrollContainer}>
-            {yotube.map((item) => {
-              return (
-                <VideoItem key={item.snippet.title}>
+    <div style={{ marginLeft: '40px', marginRight: '40px' }}>
+      <Chapter>📌자취생 레시피</Chapter>
+      <WatchMoreContainer>
+        <WatchMore onClick={watchMore}>더보기</WatchMore>
+      </WatchMoreContainer>
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <DirectionButton onClick={() => handleScroll('left')}>
+          <img src="/asset/left.png" alt="scroll left" />
+        </DirectionButton>
+        <VideoContainer ref={scrollContainer}>
+          {yotube.map((item) => {
+            return (
+              <VideoBox key={item.snippet.title}>
+                <VideoItem>
                   <img src={item.snippet.thumbnails.default.url} alt={item.snippet.title} />
-                  <div>{item.snippet.title}</div>
+                  <VideoTitle>{item.snippet.title}</VideoTitle>
                 </VideoItem>
-              );
-            })}
-          </VideoContainer>
-          <DirectionButton onClick={() => handleScroll('right')}>
-            <img src="/asset/right.png" alt="scroll right" />
-          </DirectionButton>
-        </div>
-      </StyledContainer>
-    </>
+              </VideoBox>
+            );
+          })}
+        </VideoContainer>
+        <DirectionButton onClick={() => handleScroll('right')}>
+          <img src="/asset/right.png" alt="scroll right" />
+        </DirectionButton>
+      </div>
+    </div>
   );
 };
 
