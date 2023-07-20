@@ -22,7 +22,7 @@ export const fetchVideos = async (category, pageToken = '') => {
     params: {
       part: 'snippet',
       q: category,
-      key: 'AIzaSyA0bHsrm90pIK2J9anLy_b2LTg8wbsJWck',
+      key: `${process.env.REACT_APP_API_KEY}`,
       maxResults: 1,
       pageToken
     }
