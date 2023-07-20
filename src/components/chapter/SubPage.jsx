@@ -20,7 +20,7 @@ export const fetchVideos = async (category, pageToken = '') => {
     params: {
       part: 'snippet',
       q: category,
-      key: 'AIzaSyAgWq5JVqOLhM8T1IyxXhFtt0aIyLe5zqA',
+      key: 'AIzaSyAOwyoX9hcRx6MRIak_TJrzc0-HaCvKFqE',
       maxResults: 5,
       pageToken
     }
@@ -37,7 +37,7 @@ export const VideoList = () => {
   const [sortType, setSortType] = useState('recent');
   const [sortVideos, setSortedVideos] = useState([]); //
   const [headerHeight, setHeaderHeight] = useState(0);
-  const target = useRef(null);
+  const target = useRef([]);
   const navigate = useNavigate();
   const watchDetail = () => {
     navigate('/Sub2/:id');
@@ -72,16 +72,6 @@ export const VideoList = () => {
       observer.disconnect();
     };
   }, [target.current]);
-  const sortMethod = (method) => {
-    let newSortedVideos;
-    if (method === 'recent') {
-      newSortedVideos = [...videos].sort((a, b) => new Date(b.snippet.publishedAt) - new Date(a.snippet.publishedAt));
-    } else if (method === 'old') {
-      newSortedVideos = [...videos].sort((a, b) => new Date(a.snippet.publishedAt) - new Date(b.snippet.publishedAt));
-    }
-    setSortType(method);
-    setSortedVideos(newSortedVideos);
-  };
   useEffect(() => {
     if (data && !isLoading) {
       setVideos((prevVideos) => {
@@ -92,6 +82,17 @@ export const VideoList = () => {
       sortMethod(sortType);
     }
   }, [data, isLoading]);
+  const sortMethod = (method) => {
+    let newSortedVideos;
+
+    if (method === 'recent') {
+      newSortedVideos = [...videos].sort((a, b) => new Date(b.snippet.publishedAt) - new Date(a.snippet.publishedAt));
+    } else if (method === 'old') {
+      newSortedVideos = [...videos].sort((a, b) => new Date(a.snippet.publishedAt) - new Date(b.snippet.publishedAt));
+    }
+    setSortType(method);
+    setSortedVideos(newSortedVideos);
+  };
 
   if (isLoading) return 'Loading...';
   if (error) return `에러 발생: ${error.message}`;

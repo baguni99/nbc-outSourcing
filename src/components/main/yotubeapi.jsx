@@ -1,7 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
 import { useQuery } from 'react-query';
-import CustomButton from '../chapter/Buttons';
 import {
   Chapter,
   DirectionButton,
@@ -19,7 +18,7 @@ export const fetchVideos = async (category, pageToken = '') => {
     params: {
       part: 'snippet',
       q: category,
-      key: 'AIzaSyAgWq5JVqOLhM8T1IyxXhFtt0aIyLe5zqA',
+      key: 'AIzaSyAOwyoX9hcRx6MRIak_TJrzc0-HaCvKFqE',
       maxResults: 5,
       pageToken
     }
@@ -37,7 +36,7 @@ export const Yotubeapi = () => {
   const watchMore = () => {
     navigate('/VideoList');
   };
-  const scrollContainer = useRef(null);
+  const scrollContainer = useRef([]);
   const handleScroll = (direction) => {
     if (scrollContainer.current) {
       if (direction === 'left') {
