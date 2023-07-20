@@ -11,6 +11,7 @@ const Sub2 = () => {
   const [comments, setComments] = useState([]);
   const [commentText, setCommentText] = useState('');
   const [checkPassword, setCheckPassword] = useState('');
+  const [isPasswordVerified, setIsPasswordVerified] = useState(false); // New state to track password verification
 
   const getComments = async () => {
     const { data } = await axios.get('http://localhost:3001/comments');
@@ -20,6 +21,17 @@ const Sub2 = () => {
   useEffect(() => {
     getComments();
   }, []);
+
+  // Function to handle password verification
+  const onConfirmPasswordHandler = () => {
+    // Check if the entered password matches the desired password
+    if (checkPassword === 'YOUR_DESIRED_PASSWORD') {
+      setIsPasswordVerified(true);
+    } else {
+      // If the password is incorrect, you can show an error message or take any other action
+      console.log('Incorrect password');
+    }
+  };
   const StyledContainer = styled.div`
     margin-top: ${({ headerHeight }) => (headerHeight > 10 ? `${headerHeight}px` : '0')};
   `;
@@ -59,20 +71,21 @@ const Sub2 = () => {
                   {/* EditCommentBox는 수정 버튼 활성시에만 보입니다 */}
                   <EditButtonContainer>
                     {/* 비밀번호 검증 후에는 잠시 안 보이게 */}
-                    <div className="buttonBox">
-                      <EditButton id={comment.id} currentText={comment.text} onEdit={getComments} />
-                      <DeleteButton id={comment.id} onDelete={getComments} />
-                    </div>
+
                     {/* 수정/삭제는 비밀번호 입력시에만 가능하도록 */}
                     <PasswordInputContainer>
                       <PasswordInput
                         type="password"
-                        placeholder="비밀번호 입력(4자리)"
+                        placeholder="비밀번호  확인(4자리)"
                         maxLength="4"
                         autoComplete="0000"
                       />
                       <Button type="submit">확인</Button>
                     </PasswordInputContainer>
+                    <div className="buttonBox">
+                      <EditButton id={comment.id} currentText={comment.text} onEdit={getComments} />
+                      <DeleteButton id={comment.id} onDelete={getComments} />
+                    </div>
                     {/* 위는 삭제 버튼 누를 경우에만 활성화 */}
                   </EditButtonContainer>
                 </EditBox>

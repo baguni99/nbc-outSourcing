@@ -1,25 +1,25 @@
-import React, { useState } from "react";
-import { styled } from "styled-components";
-import axios from "axios";
+import React, { useState } from 'react';
+import { styled } from 'styled-components';
+import axios from 'axios';
 
 const CommentInput = ({ getComments }) => {
-  const [password, setPassword] = useState("");
-  const [commentText, setCommentText] = useState("");
+  const [password, setPassword] = useState('');
+  const [commentText, setCommentText] = useState('');
 
   const onClickSubmitButton = async () => {
     if (password.length < 4) {
-      alert("비밀번호를 4글자로 입력해 주세요!");
+      alert('비밀번호를 4글자로 입력해 주세요!');
     } else {
       try {
         const newComment = {
           videoid: 1,
           password,
-          text: commentText,
+          text: commentText
         };
 
-        await axios.post("http://localhost:3001/comments", newComment);
-        setCommentText("");
-        setPassword("");
+        await axios.post('http://localhost:3001/comments', newComment);
+        setCommentText('');
+        setPassword('');
 
         await getComments();
       } catch (error) {
@@ -38,7 +38,7 @@ const CommentInput = ({ getComments }) => {
     >
       <CommentTextarea
         rows="5"
-        placeholder="덧글을 입력하세요"
+        placeholder="내용을 입력하세요"
         value={commentText}
         onChange={(e) => {
           setCommentText(e.target.value);

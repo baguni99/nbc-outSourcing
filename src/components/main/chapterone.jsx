@@ -1,7 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
 import { useQuery } from 'react-query';
-import CustomButton from '../chapter/Buttons';
 import {
   Chapter,
   DirectionButton,
