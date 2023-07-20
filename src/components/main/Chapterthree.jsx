@@ -20,10 +20,10 @@ export const fetchVideos = async (category, pageToken = '') => {
   return respones.data;
 };
 
-const Chaptertwo = () => {
+export const Chapterthree = () => {
   const [yotube, setYoutube] = useState([]);
   const navigate = useNavigate();
-  const { isLoading, isError, data } = useQuery('youtube', () => fetchVideos('자취방 구하기'));
+  const { isLoading, isError, data } = useQuery('youtube', () => fetchVideos('자취 노하우'));
 
   useEffect(() => {
     if (data && !isLoading) {
@@ -62,4 +62,4 @@ const Chaptertwo = () => {
   );
 };
 
-export default Chaptertwo;
+export default Chapterthree;

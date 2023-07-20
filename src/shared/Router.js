@@ -4,7 +4,7 @@ import { VideoList } from '../components/chapter/SubPage';
 
 import Main from '../pages/Main';
 import Sub2 from '../pages/Sub2';
-import Chapterone from '../components/main/chapterone';
+import Chapterone from '../components/main/Chapterone';
 const queryClient = new QueryClient(); // QueryClient 인스턴스 생성
 
 const AppRouter = () => {
@@ -12,8 +12,7 @@ const AppRouter = () => {
     <QueryClientProvider client={queryClient}>
       <Router>
         <Routes>
-          <Route path="main" element={<Main />} />
-          <Route path="/" element={<Chapterone />} />
+          <Route path="/" element={<Main />} />
           <Route path="/VideoList" element={<VideoList />} />
           <Route path="/Sub2/:id" element={<Sub2 />} />
         </Routes>
