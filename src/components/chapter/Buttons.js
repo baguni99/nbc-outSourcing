@@ -39,9 +39,13 @@ const CustomButton = ({ sortMethod }) => {
 
   return (
     <>
-      <SortByRecent onClick={sortRecent}>최신순</SortByRecent>
+      <SortByRecent onClick={sortRecent}>최신순&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</SortByRecent>
       <SortByOld onClick={sortOld}>오래된순</SortByOld>
-      {scrollFlag && <GoToTop onClick={goToTop}>맨 위로</GoToTop>}
+      {scrollFlag && (
+        <GoToTop onClick={goToTop}>
+          <img src="/asset/top.png" alt="scroll top" />
+        </GoToTop>
+      )}
     </>
   );
 };
