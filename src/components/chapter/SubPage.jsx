@@ -6,6 +6,7 @@ import { Header } from '../style/Header';
 import {
   Chapter,
   SubBody,
+  SubChapter,
   SubVideoAuthor,
   SubVideoContainer,
   SubVideoImage,
@@ -106,7 +107,7 @@ export const VideoList = () => {
     <div>
       <Header />
       <StyledContainer headerHeight={headerHeight}>
-        <Chapter>Chapter 1 | 자 취 레 시 피</Chapter>
+        <SubChapter>Chapter 1 | 자 취 레 시 피</SubChapter>
         <CustomButton sortMethod={sortMethod} />
         <SubVideoContainer>
           {sortVideos.map((video) => {

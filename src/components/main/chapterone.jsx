@@ -68,13 +68,13 @@ export const Yotubeapi = () => {
     return <div>오류가 발생했습니다.</div>;
   }
   const StyledContainer = styled.div`
-    margin-top: ${({ headerHeight }) => (headerHeight > 10 ? `${headerHeight}px` : '0')};
+    margin-top: ${({ headerHeight }) => (headerHeight > 5 ? `${headerHeight}px` : '0')};
   `;
   return (
     <>
       <Header />
       <StyledContainer headerHeight={headerHeight}>
-        <Chapter>카테고리 제목</Chapter>
+        <Chapter>👀자취생 레시피👀</Chapter>
         <WatchMoreContainer>
           <WatchMore onClick={watchMore}>더보기</WatchMore>
         </WatchMoreContainer>
@@ -88,7 +88,6 @@ export const Yotubeapi = () => {
                 <VideoItem key={item.snippet.title}>
                   <img src={item.snippet.thumbnails.default.url} alt={item.snippet.title} />
                   <div>{item.snippet.title}</div>
-                  {/* <div> {item.snippet.publishedAt}</div> */}
                 </VideoItem>
               );
             })}
