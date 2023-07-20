@@ -1,6 +1,6 @@
-import React from "react";
-import axios from "axios";
-import styled from "styled-components"; // styled-components를 import합니다.
+import React from 'react';
+import axios from 'axios';
+import styled from 'styled-components'; // styled-components를 import합니다.
 
 const DeleteButton = ({ id, onDelete }) => {
   const onClickDeleteButtonHandler = async () => {

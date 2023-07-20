@@ -4,7 +4,7 @@ import { VideoList } from '../components/chapter/SubPage';
 
 import Main from '../pages/Main';
 import Sub2 from '../pages/Sub2';
-import Chapterone from '../components/main/Chapterone';
+
 const queryClient = new QueryClient(); // QueryClient 인스턴스 생성
 
 const AppRouter = () => {
