@@ -3,7 +3,7 @@ import { createGlobalStyle } from 'styled-components';
 const GlobalStyle = createGlobalStyle`
 header {
 
-  font-family: 'Moirai One', cursive;
+  font-family: 'Jua', sans-serif;
     
 }
 body {
@@ -19,12 +19,18 @@ export const SortByOld = styled(MultiUseButton)`
   border-color: transparent;
   color: rgb(127, 127, 127);
   font-size: 18px;
+  &:hover {
+    color: rgb(64, 64, 64);
+  }
 `;
 export const SortByRecent = styled(MultiUseButton)`
   background-color: transparent;
   border-color: transparent;
   color: rgb(127, 127, 127);
   font-size: 18px;
+  &:hover {
+    color: rgb(64, 64, 64);
+  }
 `;
 
 export const WatchMore = styled(MultiUseButton)`
@@ -34,6 +40,10 @@ export const WatchMore = styled(MultiUseButton)`
   color: rgb(131, 131, 131);
   border-radius: 25px;
   border-color: transparent;
+  &:hover {
+    background-color: rgb(158, 158, 158);
+    color: rgb(255, 255, 255);
+  }
 `;
 export const WatchMoreContainer = styled.div`
   display: flex;
@@ -51,10 +61,20 @@ export const GoToTop = styled(MultiUseButton)`
 
 export const Chapter = styled.div`
   display: flex;
-
+  padding: 5px;
+  align-items: center;
+  background-color: rgba(26, 188, 156, 0.44);
+  height: 45px;
+  width: 205px;
+  font-size: 22px;
+  border-radius: 30px;
+  font-weight: bold;
+  color: rgb(52, 73, 94);
+`;
+export const SubChapter = styled.div`
+  display: flex;
   align-items: center;
   background-color: transparent;
-
   font-size: 22px;
   border-radius: 30px;
   font-weight: bold;
@@ -74,6 +94,8 @@ export const VideoItem = styled.div`
   flex: 0 0 auto;
   width: 300px;
   margin-right: 30px;
+  border-width: 30px;
+  border-color: lightgray;
   img {
     width: 100%;
     height: 200px;
@@ -117,11 +139,4 @@ export const SubVideoAuthor = styled.div`
 `;
 export const SubVideoDate = styled.div`
   font-size: 16px;
-`;
-export const SubBody = styled.div`
-  padding-top: ${({ headerHeight }) => (headerHeight > 5 ? `${headerHeight}px` : '0')};
-`;
-
-export const StyleBody = styled.div`
-  padding-top: ${({ headerHeight }) => (headerHeight > 5 ? `${headerHeight}px` : '0')};
 `;

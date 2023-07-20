@@ -6,6 +6,7 @@ import { Header } from '../style/Header';
 import {
   Chapter,
   SubBody,
+  SubChapter,
   SubVideoAuthor,
   SubVideoContainer,
   SubVideoImage,
@@ -14,14 +15,15 @@ import {
   VideoInfo
 } from '../style/Style';
 import { useNavigate } from 'react-router';
+import { styled } from 'styled-components';
 
 export const fetchVideos = async (category, pageToken = '') => {
   const response = await axios.get('https://www.googleapis.com/youtube/v3/search', {
     params: {
       part: 'snippet',
       q: category,
-      key: 'AIzaSyAOwyoX9hcRx6MRIak_TJrzc0-HaCvKFqE',
-      maxResults: 5,
+      key: 'AIzaSyA0bHsrm90pIK2J9anLy_b2LTg8wbsJWck',
+      maxResults: 1,
       pageToken
     }
   });
@@ -37,11 +39,12 @@ export const VideoList = () => {
   const [sortType, setSortType] = useState('recent');
   const [sortVideos, setSortedVideos] = useState([]); //
   const [headerHeight, setHeaderHeight] = useState(0);
-  const target = useRef([]);
+  const target = useRef();
   const navigate = useNavigate();
   const watchDetail = () => {
     navigate('/Sub2/:id');
   };
+
   const { isLoading, error, data } = useQuery(['videos', nextPageToken], () =>
     fetchVideosRef.current('자취생 레시피', nextPageToken)
   );
@@ -72,16 +75,6 @@ export const VideoList = () => {
       observer.disconnect();
     };
   }, [target.current]);
-  useEffect(() => {
-    if (data && !isLoading) {
-      setVideos((prevVideos) => {
-        const newVideos = data.items.filter((video) => !prevVideos.find((v) => v.id.videoId === video.id.videoId));
-        return [...prevVideos, ...newVideos];
-      });
-      window.scrollTo(0, scrollPosition);
-      sortMethod(sortType);
-    }
-  }, [data, isLoading]);
   const sortMethod = (method) => {
     let newSortedVideos;
 
@@ -93,14 +86,28 @@ export const VideoList = () => {
     setSortType(method);
     setSortedVideos(newSortedVideos);
   };
+  useEffect(() => {
+    if (data && !isLoading) {
+      setVideos((prevVideos) => {
+        const newVideos = data.items.filter((video) => !prevVideos.find((v) => v.id.videoId === video.id.videoId));
+        return [...prevVideos, ...newVideos];
+      });
+      window.scrollTo(0, scrollPosition);
+      sortMethod(sortType);
+    }
+  }, [data, isLoading]);
 
   if (isLoading) return 'Loading...';
   if (error) return `에러 발생: ${error.message}`;
+  const StyledContainer = styled.div`
+    margin-top: ${({ headerHeight }) => (headerHeight > 10 ? `${headerHeight}px` : '0')};
+  `;
+
   return (
     <div>
       <Header />
-      <SubBody headerHeight={headerHeight}>
-        <Chapter>Chapter 1 | 자 취 레 시 피</Chapter>
+      <StyledContainer headerHeight={headerHeight}>
+        <SubChapter>Chapter 1 | 자 취 레 시 피</SubChapter>
         <CustomButton sortMethod={sortMethod} />
         <SubVideoContainer>
           {sortVideos.map((video) => {
@@ -121,7 +128,7 @@ export const VideoList = () => {
           })}
         </SubVideoContainer>
         <div style={{ height: '100px' }} ref={target}></div>
-      </SubBody>
+      </StyledContainer>
     </div>
   );
 };

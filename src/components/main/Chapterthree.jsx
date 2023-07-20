@@ -12,14 +12,15 @@ import {
 } from '../style/Style';
 import { useNavigate } from 'react-router';
 import { Header } from '../style/Header';
+import { styled } from 'styled-components';
 
-export const fetchVideos = async (category, pageToken = '') => {
+export const fetchVideosThree = async (category, pageToken = '') => {
   const respones = await axios.get('https://www.googleapis.com/youtube/v3/search', {
     params: {
       part: 'snippet',
       q: category,
-      key: 'AIzaSyAOwyoX9hcRx6MRIak_TJrzc0-HaCvKFqE',
-      maxResults: 5,
+      key: 'AIzaSyA0bHsrm90pIK2J9anLy_b2LTg8wbsJWck',
+      maxResults: 1,
       pageToken
     }
   });
@@ -28,15 +29,16 @@ export const fetchVideos = async (category, pageToken = '') => {
   return respones.data;
 };
 
-export const Yotubeapi = () => {
+export const Chapterthree = () => {
   const [yotube, setYoutube] = useState([]);
   const [headerHeight, setHeaderHeight] = useState(0);
   const navigate = useNavigate();
-  const { isLoading, isError, data } = useQuery('youtube', () => fetchVideos('자취생 레시피'));
+  const { isLoading, isError, data } = useQuery('youtubeThree', () => fetchVideosThree('자취 노하우'));
   const watchMore = () => {
     navigate('/VideoList');
   };
-  const scrollContainer = useRef([]);
+
+  const scrollContainer = useRef();
   const handleScroll = (direction) => {
     if (scrollContainer.current) {
       if (direction === 'left') {
@@ -46,12 +48,14 @@ export const Yotubeapi = () => {
       }
     }
   };
+
   useEffect(() => {
     const headerElement = document.querySelector('header');
     if (headerElement) {
       setHeaderHeight(headerElement.offsetHeight);
     }
   }, []);
+
   useEffect(() => {
     if (data && !isLoading) {
       console.log('data===>', data.items);
@@ -63,14 +67,18 @@ export const Yotubeapi = () => {
     return <div>로딩중!</div>;
   }
   if (isError) {
-    return <div>오류가 발생했습니다.</div>;
+    return <div>오류가생겼습니다.</div>;
   }
+
+  const StyledContainer = styled.div`
+    margin-top: ${({ headerHeight }) => (headerHeight > 5 ? `${headerHeight}px` : '0')};
+  `;
 
   return (
     <>
       <Header />
-      <StyleBody headerHeight={headerHeight}>
-        <Chapter>카테고리 제목</Chapter>
+      <StyledContainer headerHeight={headerHeight}>
+        <Chapter>👀자취생 레시피👀</Chapter>
         <WatchMoreContainer>
           <WatchMore onClick={watchMore}>더보기</WatchMore>
         </WatchMoreContainer>
@@ -81,10 +89,9 @@ export const Yotubeapi = () => {
           <VideoContainer ref={scrollContainer}>
             {yotube.map((item) => {
               return (
-                <VideoItem key={item.id.videoId}>
+                <VideoItem key={item.snippet.title}>
                   <img src={item.snippet.thumbnails.default.url} alt={item.snippet.title} />
                   <div>{item.snippet.title}</div>
-                  {/* <div> {item.snippet.publishedAt}</div> */}
                 </VideoItem>
               );
             })}
@@ -93,9 +100,9 @@ export const Yotubeapi = () => {
             <img src="/asset/right.png" alt="scroll right" />
           </DirectionButton>
         </div>
-      </StyleBody>
+      </StyledContainer>
     </>
   );
 };
 
-export default Yotubeapi;
+export default Chapterthree;

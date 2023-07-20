@@ -1,10 +1,14 @@
 import React from 'react';
-import Yotubeapi from '../components/main/yotubeapi';
+import { Chapterone } from '../components/main/Chapterone';
+import Chaptertwo from '../components/main/Chaptertwo';
+import Chapterthree from '../components/main/Chapterthree';
 
 const Main = () => {
   return (
     <>
-      <Yotubeapi />
+      <Chapterone />
+      <Chaptertwo />
+      <Chapterthree />
     </>
   );
 };

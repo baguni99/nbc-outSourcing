@@ -1,10 +1,10 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import styled from 'styled-components';
 import VideoSec from '../components/detail/VideoSec';
 import CommentInput from '../components/detail/CommentInput';
 import DeleteButton from '../components/detail/DeleteButton';
-import EditButton from '../components/detail/EditButton'; // 수정된 부분
+import EditButton from '../components/detail/EditButton';
 import { Header } from '../components/style/Header';
 
 const Sub2 = () => {
@@ -45,57 +45,61 @@ const Sub2 = () => {
       console.error(error);
     }
   };
-
+  const StyledContainer = styled.div`
+    margin-top: ${({ headerHeight }) => (headerHeight > 10 ? `${headerHeight}px` : '0')};
+  `;
   return (
     <Body>
       <Header />
       <Container>
-        <VideoSec />
-        <CommentSection>
-          <h3>댓글</h3>
-          <CommentInput getComments={getComments} onConfirmPassword={onConfirmPasswordHandler} />
-          <div className="commentOutputContainer">
-            {comments?.map((comment) => (
-              <CommentBox key={comment.id}>
-                <CommentTexts>{comment.text}</CommentTexts>
-                <EditBox>
-                  <EditCommentBox>
-                    <CommentTextarea
-                      rows="4"
-                      placeholder={comment.text}
-                      value={commentText}
-                      onChange={(e) => {
-                        setCommentText(e.target.value);
-                      }}
-                    />
-                  </EditCommentBox>
-                  <EditButtonContainer>
-                    {isPasswordVerified && currentCommentId === comment.id && (
-                      <div className="buttonBox">
-                        <EditButton id={comment.id} currentText={comment.text} onEdit={onEditCommentHandler} />
-                        <DeleteButton id={comment.id} onDelete={getComments} />
-                      </div>
-                    )}
-                    {!isPasswordVerified && (
-                      <PasswordInputContainer>
-                        <PasswordInput
-                          type="password"
-                          placeholder="기존 비밀번호 확인(4자리)"
-                          maxLength="4"
-                          autoComplete="0000"
-                          onChange={(e) => setCheckPassword(e.target.value)}
-                        />
-                        <Button type="button" onClick={() => onConfirmPasswordHandler(checkPassword, comment.id)}>
-                          확인
-                        </Button>
-                      </PasswordInputContainer>
-                    )}
-                  </EditButtonContainer>
-                </EditBox>
-              </CommentBox>
-            ))}
-          </div>
-        </CommentSection>
+        <StyledContainer>
+          <VideoSec />
+          <CommentSection>
+            <h3>댓글</h3>
+            <CommentInput getComments={getComments} onConfirmPassword={onConfirmPasswordHandler} />
+            <div className="commentOutputContainer">
+              {comments?.map((comment) => (
+                <CommentBox key={comment.id}>
+                  <CommentTexts>{comment.text}</CommentTexts>
+                  <EditBox>
+                    <EditCommentBox>
+                      <CommentTextarea
+                        rows="4"
+                        placeholder={comment.text}
+                        value={commentText}
+                        onChange={(e) => {
+                          setCommentText(e.target.value);
+                        }}
+                      />
+                    </EditCommentBox>
+                    <EditButtonContainer>
+                      {isPasswordVerified && currentCommentId === comment.id && (
+                        <div className="buttonBox">
+                          <EditButton id={comment.id} currentText={comment.text} onEdit={onEditCommentHandler} />
+                          <DeleteButton id={comment.id} onDelete={getComments} />
+                        </div>
+                      )}
+                      {!isPasswordVerified && (
+                        <PasswordInputContainer>
+                          <PasswordInput
+                            type="password"
+                            placeholder="기존 비밀번호 확인(4자리)"
+                            maxLength="4"
+                            autoComplete="0000"
+                            onChange={(e) => setCheckPassword(e.target.value)}
+                          />
+                          <Button type="button" onClick={() => onConfirmPasswordHandler(checkPassword, comment.id)}>
+                            확인
+                          </Button>
+                        </PasswordInputContainer>
+                      )}
+                    </EditButtonContainer>
+                  </EditBox>
+                </CommentBox>
+              ))}
+            </div>
+          </CommentSection>
+        </StyledContainer>
       </Container>
     </Body>
   );
