@@ -1,6 +1,6 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 import { styled } from 'styled-components';
-import axios from 'axios';
 
 const CommentInput = ({ getComments }) => {
   const [password, setPassword] = useState('');
