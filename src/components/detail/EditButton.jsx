@@ -1,3 +1,5 @@
+// EditButton.jsx
+
 import axios from 'axios';
 import React, { useState } from 'react';
 import styled from 'styled-components';
@@ -12,15 +14,12 @@ const EditButton = ({ id, currentText, onEdit }) => {
 
   const onSaveChangesHandler = async () => {
     try {
-      // 코멘트를 수정하기 위해 패치 요청을 보냅니다.
-      // 수정된 텍스트를 사용합니다.
       await axios.patch(`http://localhost:3001/comments/${id}`, {
         text: editText
       });
 
-      // 수정 완료 후 부모 컴포넌트로 수정되었다고 알려줍니다.
-      onEdit(editText); // 수정된 텍스트를 인자로 전달합니다.
-      setShowModal(false); // 모달을 닫습니다.
+      onEdit(id, editText);
+      setShowModal(false);
     } catch (error) {
       console.error(error);
     }
