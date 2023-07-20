@@ -11,12 +11,6 @@
       "password": "2222",
       "text": "테스트2",
       "id": 2
-    },
-    {
-      "videoid": 1,
-      "password": "1111",
-      "text": "dddd",
-      "id": 3
     }
   ]
 }
