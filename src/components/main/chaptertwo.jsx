@@ -11,7 +11,7 @@ import {
   WatchMoreContainer
 } from '../style/Style';
 import { useNavigate } from 'react-router';
-import { Header } from '../style/Header';
+
 import { styled } from 'styled-components';
 
 export const fetchVideosTwo = async (category, pageToken = '') => {
@@ -19,7 +19,7 @@ export const fetchVideosTwo = async (category, pageToken = '') => {
     params: {
       part: 'snippet',
       q: category,
-      key: 'AIzaSyA0bHsrm90pIK2J9anLy_b2LTg8wbsJWck',
+      key: `${process.env.REACT_APP_API_KEY}`,
       maxResults: 1,
       pageToken
     }
@@ -71,7 +71,6 @@ export const Chapterotwo = () => {
   `;
   return (
     <>
-      <Header />
       <StyledContainer headerHeight={headerHeight}>
         <Chapter>👀자취생 레시피👀</Chapter>
         <WatchMoreContainer>

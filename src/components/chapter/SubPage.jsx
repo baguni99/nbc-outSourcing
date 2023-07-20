@@ -18,11 +18,11 @@ import { useNavigate } from 'react-router';
 import { styled } from 'styled-components';
 
 export const fetchVideos = async (category, pageToken = '') => {
-  const response = await axios.get('https://www.googleapis.com/youtube/v3/search', {
+  const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}`, {
     params: {
       part: 'snippet',
       q: category,
-      key: 'AIzaSyA0bHsrm90pIK2J9anLy_b2LTg8wbsJWck',
+      key: `${process.env.REACT_APP_API_KEY}`,
       maxResults: 1,
       pageToken
     }
