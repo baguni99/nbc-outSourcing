@@ -123,6 +123,7 @@ export const SubVideoItem = styled.li`
   justify-content: center;
   flex: 0 0 auto;
   width: 300px;
+  margin-bottom: 20px;
   border: 2px solid lightgray;
   img {
     width: 100%;
@@ -136,11 +137,16 @@ export const SubVideoImage = styled.img`
 `;
 export const VideoInfo = styled.div`
   margin-left: 20px;
+  margin-bottom: 20px;
 `;
 
 export const SubVideoContainer = styled.ul`
   border-color: black;
   border-type: solid;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 3%;
 `;
 export const SubVideoTitle = styled.div`
   font-size: 24px;
@@ -173,4 +179,21 @@ export const VideoBox = styled.div`
   padding: 40px;
   margin-bottom: 10px;
   margin-right: 10px;
+`;
+export const VideoSection = styled.div`
+  width: 720px;
+  height: 480px;
+  margin: 100px auto;
+  background-color: #999;
+  margin-top: 30px;
+`;
+export const SubTwoVideoTitle = styled.div`
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  font-size: 22px;
+  border-radius: 30px;
+  font-weight: bold;
+  color: rgb(52, 73, 94);
+  justify-content: center;
 `;

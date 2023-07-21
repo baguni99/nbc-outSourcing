@@ -3,15 +3,10 @@ import styled from 'styled-components';
 import YouTube from 'react-youtube';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { SubTwoVideoTitle, VideoSection } from '../style/Style';
 const apiUrl = process.env.REACT_APP_API_VIDEO_URL;
 const apiKey = process.env.REACT_APP_API_KEY;
 
-const VideoSection = styled.div`
-  width: 720px;
-  height: 480px;
-  margin: 100px auto;
-  background-color: #999;
-`;
 const VideoSec = () => {
   const [video, setVideo] = useState(null);
   const { id } = useParams();
@@ -45,6 +40,7 @@ const VideoSec = () => {
 
   return (
     <div>
+      <SubTwoVideoTitle>{video.snippet.title}</SubTwoVideoTitle>
       <VideoSection>{video && <YouTube videoId={video.id} opts={opts} />}</VideoSection>
     </div>
   );
