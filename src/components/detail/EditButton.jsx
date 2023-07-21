@@ -7,6 +7,7 @@ const EditButton = ({ id, currentText, onEdit }) => {
   const [editText, setEditText] = useState(currentText);
 
   const onClickEditButtonHandler = () => {
+    setEditText(currentText);
     setShowModal(true);
   };
 

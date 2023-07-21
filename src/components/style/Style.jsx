@@ -34,15 +34,20 @@ export const SortByRecent = styled(MultiUseButton)`
     color: rgb(64, 64, 64);
   }
 `;
+export const SortButtonsContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
 
 export const WatchMore = styled(MultiUseButton)`
-  width: 64px;
-  height: 28px;
+  width: 73px;
+  height: 38px;
   background-color: rgb(217, 201, 186);
   color: rgb(131, 131, 131);
   border-radius: 25px;
   border-color: transparent;
   margin-bottom: 30px;
+  margin-right: 50px;
   &:hover {
     background-color: #593f2f;
     color: #f2f2f2;
@@ -65,16 +70,19 @@ export const GoToTop = styled(MultiUseButton)`
 export const Chapter = styled.div`
   display: flex;
   padding: 5px;
+  justify-content: center;
   align-items: center;
   background-color: rgba(26, 188, 156, 0.44);
   height: 45px;
-  width: 205px;
+  width: 200px;
   font-size: 22px;
   border-radius: 30px;
   font-weight: bold;
   color: rgb(52, 73, 94);
-  margin: 1px;
+  margin-left: 30px;
+  margin-bottom: 10px;
 `;
+
 export const SubChapter = styled.div`
   display: flex;
   align-items: center;
@@ -93,6 +101,7 @@ export const VideoContainer = styled.div`
     display: none;
   }
   width: 100%;
+  margin-top: 5px;
 `;
 
 export const VideoItem = styled.div`
@@ -102,9 +111,7 @@ export const VideoItem = styled.div`
   justify-content: center;
   flex: 0 0 auto;
   width: 300px;
-  margin-right: 30px;
-  border-width: 30px;
-  border-color: 2px solid lightgray;
+
   img {
     width: 100%;
     height: 200px;
@@ -176,7 +183,8 @@ export const VideoBox = styled.div`
   align-items: center; /* 세로 정렬 */
   justify-content: center; /* 가로 정렬 */
   border: 2px solid lightgray;
-  padding: 40px;
+
+  padding-bottom: 10px;
   margin-bottom: 10px;
   margin-right: 10px;
 `;

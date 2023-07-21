@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import VideoSec from '../components/detail/VideoSec';
 import CommentInput from '../components/detail/CommentInput';
@@ -22,7 +22,7 @@ const Sub2 = () => {
   const [currentCommentId, setCurrentCommentId] = useState(null);
   const { id } = useParams();
 
-  const getComments = async () => {
+  const getComments = useCallback(async () => {
     try {
       const { data } = await axios.get('http://localhost:3001/comments', {
         params: {
@@ -33,11 +33,11 @@ const Sub2 = () => {
     } catch (error) {
       console.error(error);
     }
-  };
+  }, [id]);
 
   useEffect(() => {
     getComments();
-  }, []);
+  }, [getComments]);
 
   const onConfirmPasswordHandler = async (password, commentId) => {
     const commentToCheck = comments.find((comment) => comment.id === commentId);
@@ -87,26 +87,22 @@ const Sub2 = () => {
                       />
                     </EditCommentBox>
                     <EditButtonContainer>
-                      {isPasswordVerified && currentCommentId === comment.id && (
-                        <div className="buttonBox">
-                          <EditButton id={comment.id} currentText={comment.text} onEdit={onEditCommentHandler} />
-                          <DeleteButton id={comment.id} onDelete={getComments} />
-                        </div>
-                      )}
-                      {!isPasswordVerified && (
-                        <PasswordInputContainer>
-                          <PasswordInput
-                            type="password"
-                            placeholder="기존 비밀번호 입력(4자리)"
-                            maxLength="4"
-                            autoComplete="0000"
-                            onChange={(e) => setCheckPassword(e.target.value)}
-                          />
-                          <Button type="button" onClick={() => onConfirmPasswordHandler(checkPassword, comment.id)}>
-                            확인
-                          </Button>
-                        </PasswordInputContainer>
-                      )}
+                      <div className="buttonBox">
+                        <EditButton id={comment.id} currentText={comment.text} onEdit={onEditCommentHandler} />
+                        <DeleteButton id={comment.id} onDelete={getComments} />
+                      </div>
+                      <PasswordInputContainer>
+                        <PasswordInput
+                          type="password"
+                          placeholder="기존 비밀번호 입력(4자리)"
+                          maxLength="4"
+                          autoComplete="0000"
+                          onChange={(e) => setCheckPassword(e.target.value)}
+                        />
+                        <Button type="button" onClick={() => onConfirmPasswordHandler(checkPassword, comment.id)}>
+                          확인
+                        </Button>
+                      </PasswordInputContainer>
                     </EditButtonContainer>
                   </EditBox>
                 </CommentBox>

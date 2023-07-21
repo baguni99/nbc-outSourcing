@@ -1,6 +1,7 @@
 //버튼 컴포넌트
-import React, { useEffect, useState } from 'react';
-import { GoToTop, SortByOld, SortByRecent, WatchMore } from '../style/Style';
+import React, { useCallback, useEffect, useState } from 'react';
+import { SortButtonsContainer, SortByOld, SortByRecent } from '../style/Style';
+import TopButton from '../style/TopButton';
 
 function throttle(func, wait) {
   let timeout;
@@ -23,29 +24,33 @@ const CustomButton = ({ sortMethod }) => {
 
   const [scrollFlag, setScrollFlag] = useState(false);
 
-  const updateScroll = () => {
-    const { scrollY } = window;
-    scrollY > 10 ? setScrollFlag(true) : setScrollFlag(false);
-  };
-  const handleScroll = throttle(updateScroll, 100);
-
+  const handleScroll = useCallback(() => {
+    let timeout;
+    const throttledFunc = () => {
+      const { scrollY } = window;
+      scrollY > 10 ? setScrollFlag(true) : setScrollFlag(false);
+    };
+    if (!timeout) {
+      timeout = setTimeout(() => {
+        timeout = null;
+        throttledFunc();
+      }, 100);
+    }
+  }, []);
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
-  const goToTop = () => (document.documentElement.scrollTop = 0);
+  }, [handleScroll]);
 
   return (
     <>
-      <SortByRecent onClick={sortRecent}>최신순&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</SortByRecent>
-      <SortByOld onClick={sortOld}>오래된순</SortByOld>
-      {scrollFlag && (
-        <GoToTop onClick={goToTop}>
-          <img src="/asset/top.png" alt="scroll top" />
-        </GoToTop>
-      )}
+      <SortButtonsContainer>
+        <SortByRecent onClick={sortRecent}>최신순&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</SortByRecent>
+        <SortByOld onClick={sortOld}>오래된순</SortByOld>
+      </SortButtonsContainer>
+      {scrollFlag && <TopButton isVisible={scrollFlag} />}
     </>
   );
 };

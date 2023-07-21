@@ -1,5 +1,4 @@
-import React, { lazy, useEffect, useState } from 'react';
-import styled from 'styled-components';
+import React, { useEffect, useState } from 'react';
 import YouTube from 'react-youtube';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
@@ -11,22 +10,23 @@ const VideoSec = () => {
   const [video, setVideo] = useState(null);
   const { id } = useParams();
   console.log('영상id', id);
-
-  const fetchVideo = async () => {
-    console.log(apiUrl, apiKey);
-    const response = await axios.get(apiUrl, {
-      params: {
-        part: 'snippet',
-        id,
-        key: apiKey
-      }
-    });
-    console.log('로그확인', response.data);
-    setVideo(response.data.items[0]);
-  };
-
   useEffect(() => {
     console.log('useEffect is running');
+    const fetchVideo = async () => {
+      console.log(apiUrl, apiKey);
+      const response = await axios.get(apiUrl, {
+        params: {
+          part: 'snippet',
+          id,
+          key: apiKey
+        }
+      });
+      console.log('로그확인', response.data);
+      if (response.data.items.length > 0) {
+        setVideo(response.data.items[0]);
+      }
+    };
+
     fetchVideo();
   }, [id]);
 
@@ -40,13 +40,15 @@ const VideoSec = () => {
 
   return (
     <div>
-      {video && (
+      {video ? (
         <>
           <SubTwoVideoTitle>{video.snippet.title}</SubTwoVideoTitle>
           <VideoSection>
             <YouTube videoId={video.id} opts={opts} />
           </VideoSection>
         </>
+      ) : (
+        <div>해당 비디오를 불러올 수 없습니다.</div>
       )}
     </div>
   );

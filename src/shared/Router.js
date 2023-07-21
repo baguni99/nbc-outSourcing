@@ -8,10 +8,11 @@ import Sub2 from '../pages/Sub2';
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: Infinity
+      staleTime: Infinity,
+      refetchOnMount: false
     }
   }
-}); // QueryClient 인스턴스 생성
+});
 
 const AppRouter = () => {
   return (

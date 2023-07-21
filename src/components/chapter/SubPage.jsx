@@ -1,11 +1,9 @@
 import { useQuery } from 'react-query';
 import axios from 'axios';
-import { useEffect, useState, useRef, useLayoutEffect } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import CustomButton from './Buttons';
 import { Header } from '../style/Header';
 import {
-  Chapter,
-  SubBody,
   SubChapter,
   SubVideoAuthor,
   SubVideoContainer,
@@ -18,7 +16,7 @@ import { useNavigate } from 'react-router';
 import { styled } from 'styled-components';
 import { Footer } from '../style/Footer';
 const apiUrl = process.env.REACT_APP_API_URL;
-const apiKey = process.env.REACT_APP_API_KEY;
+
 export const fetchVideos = async (category, pageToken = '') => {
   const response = await axios.get(apiUrl, {
     params: {
@@ -32,6 +30,9 @@ export const fetchVideos = async (category, pageToken = '') => {
 
   return response.data;
 };
+const StyledContainer = styled.div`
+  margin-top: ${(props) => props.headerMargin}px;
+`;
 
 export const VideoList = () => {
   const [videos, setVideos] = useState([]);
@@ -41,11 +42,21 @@ export const VideoList = () => {
   const [sortType, setSortType] = useState('recent');
   const [sortVideos, setSortedVideos] = useState([]); //
   const [headerHeight, setHeaderHeight] = useState(0);
+  const [scrollY, setScrollY] = useState(0);
   const target = useRef();
   const navigate = useNavigate();
   const watchDetail = (id) => {
     navigate(`/Sub2/${id}`);
   };
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   const { isLoading, error, data } = useQuery(['videos', nextPageToken], () =>
     fetchVideosRef.current('자취생 레시피', nextPageToken)
@@ -61,7 +72,6 @@ export const VideoList = () => {
     });
   };
 
-  const observer = new IntersectionObserver(callback, { threshold: 1.0 });
   useEffect(() => {
     const headerElement = document.querySelector('header');
     if (headerElement) {
@@ -69,6 +79,8 @@ export const VideoList = () => {
     }
   }, []);
   useEffect(() => {
+    const observer = new IntersectionObserver(callback, { threshold: 1.0 });
+
     if (target.current) {
       observer.observe(target.current);
     }
@@ -76,7 +88,7 @@ export const VideoList = () => {
     return () => {
       observer.disconnect();
     };
-  }, [target.current]);
+  }, [target, callback]);
   const sortMethod = (method) => {
     let newSortedVideos;
 
@@ -101,16 +113,14 @@ export const VideoList = () => {
 
   if (isLoading) return 'Loading...';
   if (error) return `에러 발생: ${error.message}`;
-  const StyledContainer = styled.div`
-    margin-top: ${({ headerHeight }) => (headerHeight > 10 ? `${headerHeight}px` : '0')};
-  `;
 
   return (
     <div>
       <Header />
-      <StyledContainer headerHeight={headerHeight}>
+      <StyledContainer headerMargin={0}>
         <SubChapter>Chapter 1 | 자 취 레 시 피</SubChapter>
         <CustomButton sortMethod={sortMethod} />
+
         <SubVideoContainer>
           {sortVideos.map((video) => {
             const id = video.id.videoId || video.id.channelId || video.etag;

@@ -3,10 +3,15 @@ import axios from 'axios';
 import styled from 'styled-components';
 
 const DeleteButton = ({ id, onDelete }) => {
-  const onClickDeleteButtonHandler = () => {
+  const onClickDeleteButtonHandler = async () => {
     const confirmDelete = window.confirm('정말 삭제하시겠습니까?');
     if (confirmDelete) {
-      deleteComment();
+      try {
+        await axios.delete(`http://localhost:3001/comments/${id}`);
+        onDelete();
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
 

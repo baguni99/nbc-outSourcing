@@ -4,7 +4,6 @@ import { useQuery } from 'react-query';
 import {
   Chapter,
   DirectionButton,
-  StyleBody,
   VideoBox,
   VideoContainer,
   VideoItem,
@@ -13,8 +12,6 @@ import {
   WatchMoreContainer
 } from '../style/Style';
 import { useNavigate } from 'react-router';
-import { Header } from '../style/Header';
-import { styled } from 'styled-components';
 
 export const fetchVideos = async (category, pageToken = '') => {
   const response = await axios.get('https://www.googleapis.com/youtube/v3/search', {
@@ -22,7 +19,7 @@ export const fetchVideos = async (category, pageToken = '') => {
       part: 'snippet',
       q: category,
       key: `${process.env.REACT_APP_API_KEY}`,
-      maxResults: 1,
+      maxResults: 5,
       pageToken
     }
   });
@@ -43,9 +40,9 @@ export const Chapterone = () => {
   const handleScroll = (direction) => {
     if (scrollContainer.current) {
       if (direction === 'left') {
-        scrollContainer.current.scrollLeft += 300;
-      } else {
         scrollContainer.current.scrollLeft -= 300;
+      } else {
+        scrollContainer.current.scrollLeft += 300;
       }
     }
   };
@@ -60,7 +57,7 @@ export const Chapterone = () => {
       console.log('data===>', data.items);
       setYoutube((prevYoutube) => [...prevYoutube, ...data.items]);
     }
-  }, [data]);
+  }, [data, isLoading]);
 
   if (isLoading) {
     return <div>로</div>;
@@ -75,14 +72,14 @@ export const Chapterone = () => {
       <WatchMoreContainer>
         <WatchMore onClick={watchMore}>더보기</WatchMore>
       </WatchMoreContainer>
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1px' }}>
         <DirectionButton onClick={() => handleScroll('left')}>
           <img src="/asset/left.png" alt="scroll left" />
         </DirectionButton>
         <VideoContainer ref={scrollContainer}>
           {yotube.map((item) => {
             return (
-              <VideoBox key={item.snippet.title}>
+              <VideoBox key={item.id.videoId || item.etag}>
                 <VideoItem>
                   <img src={item.snippet.thumbnails.default.url} alt={item.snippet.title} />
                   <VideoTitle>{item.snippet.title}</VideoTitle>

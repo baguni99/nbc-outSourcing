@@ -4,7 +4,6 @@ import { useQuery } from 'react-query';
 import {
   Chapter,
   DirectionButton,
-  StyleBody,
   VideoBox,
   VideoContainer,
   VideoItem,
@@ -13,10 +12,6 @@ import {
   WatchMoreContainer
 } from '../style/Style';
 import { useNavigate } from 'react-router';
-
-import { styled } from 'styled-components';
-import { Header } from '../style/Header';
-import { Footer, StyledFooter } from '../style/Footer';
 
 export const fetchVideosThree = async (category, pageToken = '') => {
   const respones = await axios.get('https://www.googleapis.com/youtube/v3/search', {
