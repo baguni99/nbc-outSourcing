@@ -7,6 +7,11 @@ import DeleteButton from '../components/detail/DeleteButton';
 import EditButton from '../components/detail/EditButton';
 import { Header } from '../components/style/Header';
 import { Footer } from '../components/style/Footer';
+import { useParams } from 'react-router-dom';
+
+const StyledContainer = styled.div`
+  margin-top: ${({ headerHeight }) => (headerHeight > 10 ? `${headerHeight}px` : '0')};
+`;
 
 const Sub2 = () => {
   const [comments, setComments] = useState([]);
@@ -14,9 +19,10 @@ const Sub2 = () => {
   const [checkPassword, setCheckPassword] = useState('');
   const [isPasswordVerified, setIsPasswordVerified] = useState(false);
   const [currentCommentId, setCurrentCommentId] = useState(null);
+  const { id } = useParams();
 
   const getComments = async () => {
-    const { data } = await axios.get('http://localhost:3001/comments');
+    const { data } = await axios.get('http://localhost:3001/comments/');
     setComments(data);
   };
 
@@ -46,15 +52,13 @@ const Sub2 = () => {
       console.error(error);
     }
   };
-  const StyledContainer = styled.div`
-    margin-top: ${({ headerHeight }) => (headerHeight > 10 ? `${headerHeight}px` : '0')};
-  `;
+
   return (
     <Body>
       <Header />
       <Container>
         <StyledContainer>
-          <VideoSec />
+          <VideoSec videoId={id} />
           <CommentSection>
             <h3>댓글</h3>
             <CommentInput getComments={getComments} onConfirmPassword={onConfirmPasswordHandler} />
