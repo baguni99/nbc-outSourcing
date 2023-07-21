@@ -40,8 +40,14 @@ const VideoSec = () => {
 
   return (
     <div>
-      <SubTwoVideoTitle>{video.snippet.title}</SubTwoVideoTitle>
-      <VideoSection>{video && <YouTube videoId={video.id} opts={opts} />}</VideoSection>
+      {video && (
+        <>
+          <SubTwoVideoTitle>{video.snippet.title}</SubTwoVideoTitle>
+          <VideoSection>
+            <YouTube videoId={video.id} opts={opts} />
+          </VideoSection>
+        </>
+      )}
     </div>
   );
 };

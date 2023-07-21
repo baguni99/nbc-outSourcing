@@ -5,7 +5,13 @@ import { VideoList } from '../components/chapter/SubPage';
 import Main from '../pages/Main';
 import Sub2 from '../pages/Sub2';
 
-const queryClient = new QueryClient(); // QueryClient 인스턴스 생성
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: Infinity
+    }
+  }
+}); // QueryClient 인스턴스 생성
 
 const AppRouter = () => {
   return (
