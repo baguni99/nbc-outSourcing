@@ -22,8 +22,16 @@ const Sub2 = () => {
   const { id } = useParams();
 
   const getComments = async () => {
-    const { data } = await axios.get('http://localhost:3001/comments/');
-    setComments(data);
+    try {
+      const { data } = await axios.get('http://localhost:3001/comments', {
+        params: {
+          videoId: id
+        }
+      });
+      setComments(data);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
@@ -61,7 +69,7 @@ const Sub2 = () => {
           <VideoSec videoId={id} />
           <CommentSection>
             <h3>댓글</h3>
-            <CommentInput getComments={getComments} onConfirmPassword={onConfirmPasswordHandler} />
+            <CommentInput getComments={getComments} id={id} onConfirmPassword={onConfirmPasswordHandler} />
             <div className="commentOutputContainer">
               {comments?.map((comment) => (
                 <CommentBox key={comment.id}>

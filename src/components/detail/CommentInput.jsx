@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { styled } from 'styled-components';
 
-const CommentInput = ({ getComments }) => {
+const CommentInput = ({ getComments, id }) => {
   const [password, setPassword] = useState('');
   const [commentText, setCommentText] = useState('');
 
@@ -12,7 +12,7 @@ const CommentInput = ({ getComments }) => {
     } else {
       try {
         const newComment = {
-          videoid: 1,
+          videoId: id,
           password,
           text: commentText
         };

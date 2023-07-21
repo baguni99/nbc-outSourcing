@@ -1,27 +1,27 @@
 {
   "comments": [
     {
-      "videoid": 1,
-      "password": "1111",
-      "text": "테스트1",
+      "videoId": "2",
+      "password": "2222",
+      "text": "테스트2",
       "id": 1
     },
     {
-      "videoid": 1,
-      "password": "2222",
-      "text": "테스트2",
+      "videoId": "1",
+      "password": "1111",
+      "text": "테스트1",
       "id": 2
     },
     {
-      "videoid": 1,
-      "password": "0000",
-      "text": "댓글",
+      "videoId": "3",
+      "password": "3333",
+      "text": "테스트3",
       "id": 3
     },
     {
-      "videoid": 1,
-      "password": "3333",
-      "text": "테스트3",
+      "videoId": "4",
+      "password": "4444",
+      "text": "테스트4",
       "id": 4
     }
   ]
