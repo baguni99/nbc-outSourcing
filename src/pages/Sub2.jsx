@@ -96,7 +96,7 @@ const Sub2 = () => {
                         <PasswordInputContainer>
                           <PasswordInput
                             type="password"
-                            placeholder="기존 비밀번호 확인(4자리)"
+                            placeholder="기존 비밀번호 입력(4자리)"
                             maxLength="4"
                             autoComplete="0000"
                             onChange={(e) => setCheckPassword(e.target.value)}
