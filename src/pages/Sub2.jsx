@@ -7,6 +7,11 @@ import DeleteButton from '../components/detail/DeleteButton';
 import EditButton from '../components/detail/EditButton';
 import { Header } from '../components/style/Header';
 import { Footer } from '../components/style/Footer';
+import { useParams } from 'react-router-dom';
+
+const StyledContainer = styled.div`
+  margin-top: ${({ headerHeight }) => (headerHeight > 10 ? `${headerHeight}px` : '0')};
+`;
 
 const Sub2 = () => {
   const [comments, setComments] = useState([]);
@@ -14,10 +19,19 @@ const Sub2 = () => {
   const [checkPassword, setCheckPassword] = useState('');
   const [isPasswordVerified, setIsPasswordVerified] = useState(false);
   const [currentCommentId, setCurrentCommentId] = useState(null);
+  const { id } = useParams();
 
   const getComments = async () => {
-    const { data } = await axios.get('http://localhost:3001/comments');
-    setComments(data);
+    try {
+      const { data } = await axios.get('http://localhost:3001/comments', {
+        params: {
+          videoId: id
+        }
+      });
+      setComments(data);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
@@ -46,18 +60,16 @@ const Sub2 = () => {
       console.error(error);
     }
   };
-  const StyledContainer = styled.div`
-    margin-top: ${({ headerHeight }) => (headerHeight > 10 ? `${headerHeight}px` : '0')};
-  `;
+
   return (
     <Body>
       <Header />
       <Container>
         <StyledContainer>
-          <VideoSec />
+          <VideoSec videoId={id} />
           <CommentSection>
             <h3>댓글</h3>
-            <CommentInput getComments={getComments} onConfirmPassword={onConfirmPasswordHandler} />
+            <CommentInput getComments={getComments} id={id} onConfirmPassword={onConfirmPasswordHandler} />
             <div className="commentOutputContainer">
               {comments?.map((comment) => (
                 <CommentBox key={comment.id}>
@@ -84,7 +96,7 @@ const Sub2 = () => {
                         <PasswordInputContainer>
                           <PasswordInput
                             type="password"
-                            placeholder="기존 비밀번호 확인(4자리)"
+                            placeholder="기존 비밀번호 입력(4자리)"
                             maxLength="4"
                             autoComplete="0000"
                             onChange={(e) => setCheckPassword(e.target.value)}

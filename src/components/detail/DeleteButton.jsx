@@ -6,7 +6,6 @@ const DeleteButton = ({ id, onDelete }) => {
   const onClickDeleteButtonHandler = () => {
     const confirmDelete = window.confirm('정말 삭제하시겠습니까?');
     if (confirmDelete) {
-      // 사용자가 확인을 선택한 경우에만 삭제 요청을 보냅니다.
       deleteComment();
     }
   };

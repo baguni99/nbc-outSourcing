@@ -1,5 +1,3 @@
-// EditButton.jsx
-
 import axios from 'axios';
 import React, { useState } from 'react';
 import styled from 'styled-components';
@@ -102,4 +100,5 @@ const CancelButton = styled.button`
   font-size: 16px;
   background-color: #ccc;
   cursor: pointer;
+  margin: 10px;
 `;
