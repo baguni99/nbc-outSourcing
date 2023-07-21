@@ -16,6 +16,7 @@ import {
 } from '../style/Style';
 import { useNavigate } from 'react-router';
 import { styled } from 'styled-components';
+import { Footer } from '../style/Footer';
 const apiUrl = process.env.REACT_APP_API_URL;
 const apiKey = process.env.REACT_APP_API_KEY;
 export const fetchVideos = async (category, pageToken = '') => {
@@ -130,6 +131,7 @@ export const VideoList = () => {
         </SubVideoContainer>
         <div style={{ height: '100px' }} ref={target}></div>
       </StyledContainer>
+      <Footer />
     </div>
   );
 };

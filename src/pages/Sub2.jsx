@@ -6,6 +6,7 @@ import CommentInput from '../components/detail/CommentInput';
 import DeleteButton from '../components/detail/DeleteButton';
 import EditButton from '../components/detail/EditButton';
 import { Header } from '../components/style/Header';
+import { Footer } from '../components/style/Footer';
 
 const Sub2 = () => {
   const [comments, setComments] = useState([]);
@@ -101,6 +102,7 @@ const Sub2 = () => {
           </CommentSection>
         </StyledContainer>
       </Container>
+      <Footer />
     </Body>
   );
 };
