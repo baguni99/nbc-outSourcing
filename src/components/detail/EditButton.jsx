@@ -18,9 +18,16 @@ const EditButton = ({ id, currentText, onEdit }) => {
 
       onEdit(id, editText);
       setShowModal(false);
+      window.alert('저장되었습니다.');
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const onCancelHandler = () => {
+    setShowModal(false);
+    window.alert('저장이 취소되었습니다.');
+    window.location.reload();
   };
 
   return (
@@ -34,7 +41,7 @@ const EditButton = ({ id, currentText, onEdit }) => {
           <Modal>
             <textarea value={editText} onChange={(e) => setEditText(e.target.value)} />
             <SaveButton onClick={onSaveChangesHandler}>저장</SaveButton>
-            <CancelButton onClick={() => setShowModal(false)}>취소</CancelButton>
+            <CancelButton onClick={onCancelHandler}>취소</CancelButton>
           </Modal>
         </ModalContainer>
       )}
@@ -78,7 +85,6 @@ const Modal = styled.div`
     height: 150px;
     resize: none;
     margin-bottom: 10px;
-    padding: 5px;
   }
 `;
 

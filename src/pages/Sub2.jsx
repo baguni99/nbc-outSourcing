@@ -7,6 +7,7 @@ import DeleteButton from '../components/detail/DeleteButton';
 import EditButton from '../components/detail/EditButton';
 import { Header } from '../components/style/Header';
 import { Footer } from '../components/style/Footer';
+import TopButton from '../components/style/TopButton';
 import { useParams } from 'react-router-dom';
 
 const StyledContainer = styled.div`
@@ -115,6 +116,7 @@ const Sub2 = () => {
         </StyledContainer>
       </Container>
       <Footer />
+      <TopButton />
     </Body>
   );
 };

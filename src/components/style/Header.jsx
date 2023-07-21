@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StyledHeader = styled.header`
+  z-index: 1000;
   font-size: ${(props) => (props.isFixed ? '30px' : '60px')};
   font-weight: bold;
   background-color: rgb(205, 217, 199);
@@ -35,7 +36,7 @@ export const Header = () => {
   const [headerHeight, setHeaderHeight] = useState(0);
   const navigate = useNavigate();
   const goToMain = () => {
-    navigate('main');
+    navigate('/');
   };
   useEffect(() => {
     const handleScroll = () => {
