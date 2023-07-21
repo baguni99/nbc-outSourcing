@@ -24,7 +24,6 @@ export const fetchVideos = async (category, pageToken = '') => {
       pageToken
     }
   });
-  console.log(response);
 
   return response.data;
 };
@@ -38,6 +37,7 @@ export const Chapterone = () => {
     navigate('/VideoList');
   };
   const scrollContainer = useRef();
+
   const handleScroll = (direction) => {
     if (scrollContainer.current) {
       if (direction === 'left') {
@@ -47,6 +47,7 @@ export const Chapterone = () => {
       }
     }
   };
+
   useEffect(() => {
     const headerElement = document.querySelector('header');
     if (headerElement) {
@@ -82,9 +83,9 @@ export const Chapterone = () => {
             <img src="/asset/left.png" alt="scroll left" />
           </DirectionButton>
           <VideoContainer ref={scrollContainer}>
-            {yotube.map((item) => {
+            {yotube.map((item, index) => {
               return (
-                <VideoItem key={item.snippet.title}>
+                <VideoItem key={`${item.snippet.title}_${index}`}>
                   <img src={item.snippet.thumbnails.default.url} alt={item.snippet.title} />
                   <div>{item.snippet.title}</div>
                 </VideoItem>
