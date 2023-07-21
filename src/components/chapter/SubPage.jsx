@@ -43,8 +43,8 @@ export const VideoList = () => {
   const [headerHeight, setHeaderHeight] = useState(0);
   const target = useRef();
   const navigate = useNavigate();
-  const watchDetail = () => {
-    navigate('/Sub2/:id');
+  const watchDetail = (id) => {
+    navigate(`/Sub2/${id}`);
   };
 
   const { isLoading, error, data } = useQuery(['videos', nextPageToken], () =>
@@ -115,7 +115,7 @@ export const VideoList = () => {
           {sortVideos.map((video) => {
             const id = video.id.videoId || video.id.channelId || video.etag;
             return (
-              <SubVideoItem onClick={watchDetail} key={id}>
+              <SubVideoItem onClick={() => watchDetail(id)} key={id}>
                 <SubVideoImage src={video.snippet.thumbnails.default.url} alt={video.snippet.title} />
                 <VideoInfo>
                   <SubVideoTitle>{video.snippet.title}</SubVideoTitle>
