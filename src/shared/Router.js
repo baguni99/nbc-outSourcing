@@ -4,6 +4,8 @@ import { VideoList } from '../components/chapter/SubPage';
 
 import Main from '../pages/Main';
 import Sub2 from '../pages/Sub2';
+import Login from '../pages/Login';
+import SignUp from '../pages/SignUp';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -22,6 +24,8 @@ const AppRouter = () => {
           <Route path="/" element={<Main />} />
           <Route path="/VideoList" element={<VideoList />} />
           <Route path="/Sub2/:id" element={<Sub2 />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
         </Routes>
       </Router>
     </QueryClientProvider>
