@@ -110,7 +110,7 @@ export const VideoList = () => {
       sortMethod(sortType);
     }
   }, [data, isLoading]);
-
+  window.location.replace('/VideoList');
   if (isLoading) return 'Loading...';
   if (error) return `에러 발생: ${error.message}`;
 

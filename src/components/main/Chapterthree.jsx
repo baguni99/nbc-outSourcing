@@ -34,7 +34,7 @@ export const Chapterthree = () => {
   const navigate = useNavigate();
   const { isLoading, isError, data } = useQuery('youtubeThree', () => fetchVideosThree('자취 노하우'));
   const watchMore = () => {
-    navigate('/VideoList');
+    navigate('/VideoListThree');
   };
 
   const scrollContainer = useRef();
