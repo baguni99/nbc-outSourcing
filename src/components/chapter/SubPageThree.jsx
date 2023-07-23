@@ -116,7 +116,7 @@ export const VideoListThree = () => {
     <div>
       <Header />
       <StyledContainer headerMargin={0}>
-        <SubChapter>Chapter 1 | 자 취 레 시 피</SubChapter>
+        <SubChapter>Chapter 3 | 자 취 노 하 우</SubChapter>
         <CustomButton sortMethod={sortMethod} />
 
         <SubVideoContainer>
