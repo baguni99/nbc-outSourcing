@@ -18,8 +18,9 @@ export const fetchVideos = async (category, pageToken = '') => {
 };
 
 export const Yotubeapi = () => {
-  const { isLoading, isError, data } = useQuery('youtube', fetchVideos);
   const [yotube, setYoutube] = useState([]);
+
+  const { isLoading, isError, data } = useQuery('youtube', () => fetchVideos('자취생 레시피'));
 
   useEffect(() => {
     if (data && !isLoading) {
