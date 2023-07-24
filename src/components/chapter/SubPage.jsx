@@ -23,7 +23,7 @@ export const fetchVideos = async (category, pageToken = '') => {
       part: 'snippet',
       q: category,
       key: `${process.env.REACT_APP_API_KEY}`,
-      maxResults: 15,
+      maxResults: 12,
       pageToken
     }
   });
