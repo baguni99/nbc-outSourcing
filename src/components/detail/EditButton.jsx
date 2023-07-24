@@ -2,11 +2,16 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-const EditButton = ({ id, currentText, onEdit }) => {
+const EditButton = ({ id, currentText, onEdit, isPasswordVerified, currentCommentId }) => {
   const [showModal, setShowModal] = useState(false);
   const [editText, setEditText] = useState(currentText);
 
   const onClickEditButtonHandler = () => {
+    if (!isPasswordVerified || currentCommentId !== id) {
+      alert('비밀번호를 확인해 주세요!');
+      return;
+    }
+
     setEditText(currentText);
     setShowModal(true);
   };

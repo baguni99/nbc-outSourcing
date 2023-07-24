@@ -88,7 +88,13 @@ const Sub2 = () => {
                     </EditCommentBox>
                     <EditButtonContainer>
                       <div className="buttonBox">
-                        <EditButton id={comment.id} currentText={comment.text} onEdit={onEditCommentHandler} />
+                        <EditButton
+                          id={comment.id}
+                          currentText={comment.text}
+                          onEdit={onEditCommentHandler}
+                          isPasswordVerified={isPasswordVerified}
+                          currentCommentId={currentCommentId}
+                        />
                         <DeleteButton id={comment.id} onDelete={getComments} />
                       </div>
                       <PasswordInputContainer>
