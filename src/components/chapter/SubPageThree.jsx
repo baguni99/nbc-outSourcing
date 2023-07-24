@@ -72,7 +72,7 @@ export const VideoListThree = () => {
     };
   }, []);
 
-  const { isLoading, error, data } = useQuery(['videos', nextPageToken], () =>
+  const { isLoading, error, data } = useQuery(['videotip', nextPageToken], () =>
     fetchVideosRef.current('자취 노하우', nextPageToken)
   );
 
