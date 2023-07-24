@@ -59,7 +59,7 @@ export const VideoListTwo = () => {
     };
   }, []);
 
-  const { isLoading, error, data } = useQuery(['videos', nextPageToken], () =>
+  const { isLoading, error, data } = useQuery(['videosForRoom', nextPageToken], () =>
     fetchVideosRef.current('자취방 구하기', nextPageToken)
   );
 

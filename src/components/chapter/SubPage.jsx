@@ -58,7 +58,7 @@ export const VideoList = () => {
     };
   }, []);
 
-  const { isLoading, error, data } = useQuery(['videos', nextPageToken], () =>
+  const { isLoading, error, data } = useQuery(['videosForRecipe', nextPageToken], () =>
     fetchVideosRef.current('자취생 레시피', nextPageToken)
   );
 
